@@ -49,12 +49,15 @@ Situs yang tayang: [https://tenos.id](https://tenos.id)
 
 ## Alur branch
 
-`main` adalah cabang production dan staging. Perubahan masuk ke sana hanya lewat pull request yang disetujui pemilik repositori, [@kerjanyata000](https://github.com/kerjanyata000).
+| Branch | Peran | Siapa yang boleh push |
+| --- | --- | --- |
+| `dev` | Staging | [@hanifabbads](https://github.com/hanifabbads) dan pemilik repo |
+| `main` | Production | Hanya lewat pull request yang disetujui [@kerjanyata000](https://github.com/kerjanyata000) |
 
-`dev` adalah cabang kerja. [@hanifabbads](https://github.com/hanifabbads) hanya boleh mendorong commit ke `dev`, dan tidak bisa membuat branch lain.
+Hanif hanya bisa bekerja di `dev`. Dia tidak bisa membuat branch lain, dan tidak bisa push langsung ke `main`.
 
 1. Kerja dan push di `dev`.
-2. Buka pull request dari `dev` ke `main`.
+2. Buka pull request dari `dev` ke `main` saat staging siap naik ke production.
 3. Pemilik repo menyetujui review, lalu merge. Push langsung ke `main` ditolak, termasuk force-push dan penghapusan branch.
 
 Aturan ini ditegakkan oleh GitHub ruleset. Berkasnya ada di `.github/rulesets/`, dan pemilik kode ada di `.github/CODEOWNERS`.
