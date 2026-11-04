@@ -1,0 +1,184 @@
+/**
+ * Tenos design tokens — single source of truth.
+ * :root holds raw/semantic values; globals.css maps them into Tailwind @theme.
+ */
+
+:root {
+  /* —— Brand primitives —— */
+  --tenos-brand-primary: #08bac5;
+  --tenos-brand-primary-hover: #079aa3;
+  --tenos-brand-primary-subtle: #daf7f8;
+  --tenos-brand-primary-muted: #f1fefe;
+  --tenos-brand-secondary: #ffd600;
+  --tenos-brand-accent: #7655e8;
+  --tenos-brand-digdeep: #bd2e4c;
+
+  /* —— Neutrals —— */
+  --tenos-white: #ffffff;
+  --tenos-black: #000000;
+  --tenos-gray-950: #0b0d12;
+  --tenos-gray-900: #181d27;
+  --tenos-gray-700: #414651;
+  --tenos-gray-600: #535862;
+  --tenos-gray-500: #717680;
+  --tenos-gray-300: #d5d7da;
+  --tenos-gray-200: #e9eaeb;
+  --tenos-gray-100: #f5f5f5;
+  --tenos-gray-50: #fafafa;
+
+  /* —— Semantic: text —— */
+  --color-text-primary: var(--tenos-gray-900);
+  --color-text-secondary: var(--tenos-gray-700);
+  --color-text-tertiary: var(--tenos-gray-600);
+  --color-text-inverse: var(--tenos-white);
+  --color-text-on-brand: var(--tenos-gray-950);
+  --color-text-brand: #05777f;
+  --color-text-link: #05777f;
+  --color-text-white: var(--tenos-white);
+
+  /* —— Semantic: backgrounds —— */
+  /* Figma: Background (BG)/bg-gray/bg-primary | bg-secondary */
+  --color-bg-page: var(--tenos-white);
+  --color-bg-primary: var(--tenos-white);
+  --color-bg-soft: var(--tenos-gray-50);
+  --color-bg-secondary: var(--tenos-gray-50);
+  --color-bg-hover: var(--tenos-gray-100);
+  --color-bg-inverse: var(--tenos-gray-950);
+  --color-bg-brand-solid: var(--tenos-brand-primary);
+  --color-bg-brand-solid-hover: var(--tenos-brand-primary-hover);
+  --color-bg-brand-subtle: var(--tenos-brand-primary-subtle);
+  --color-bg-accent: var(--tenos-brand-secondary);
+
+  /* —— Semantic: borders —— */
+  --color-border-decorative: var(--tenos-gray-200);
+  --color-border-secondary: var(--tenos-gray-200);
+  --color-border-control: var(--tenos-gray-500);
+  --color-border-strong: var(--tenos-gray-950);
+  --color-border-brand-hover: var(--tenos-brand-primary-hover);
+
+  --color-focus-ring: var(--tenos-gray-900);
+
+  /* Brand shortcuts for components */
+  --color-brand-primary: var(--tenos-brand-primary);
+  --color-brand-primary-hover: var(--tenos-brand-primary-hover);
+  --color-brand-secondary: var(--tenos-brand-secondary);
+  --color-brand-accent: var(--tenos-brand-accent);
+  --color-brand-digdeep: var(--tenos-brand-digdeep);
+
+  /* —— Typography —— */
+  --font-display: var(--font-roboto), system-ui, sans-serif;
+  --font-text: var(--font-manrope), system-ui, sans-serif;
+
+  --text-caption: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-md: 1.125rem;
+  --text-lg: 1.25rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 1.75rem;
+  --text-3xl: 2.5rem;
+  --text-display: clamp(2.625rem, 2rem + 2vw, 4rem);
+
+  --leading-tight: 1.1;
+  --leading-snug: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.6;
+
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* —— Spacing (4px scale) —— */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-14: 3.5rem;
+  --space-16: 4rem;
+  --space-20: 5rem;
+  --space-24: 6rem;
+  --space-28: 7rem;
+
+  /* —— Layout —— */
+  --page-max-width: 90rem;
+  --nav-height: 7rem;
+  --gutter: 3.75rem;
+  --section-padding-y: 6.875rem;
+  --section-stack-gap: 3rem;
+  --card-padding: 2rem;
+  --card-gap: 1.5rem;
+
+  /* —— Radius —— */
+  --radius-none: 0;
+  --radius-sm: 0.5rem;
+  --radius-small: 0.5rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-card: 1.5rem;
+  --radius-button: 62.5rem;
+  --radius-full: 9999px;
+
+  /* —— Shadows —— */
+  --shadow-nav: 0 0 0 1px var(--color-border-decorative),
+    0 8px 24px rgba(10, 13, 18, 0.08);
+  --shadow-card: 0 12px 32px rgba(10, 13, 18, 0.05);
+  --shadow-card-hover: 0 18px 40px rgba(10, 13, 18, 0.08);
+  --shadow-cta: 0 10px 28px rgba(8, 186, 197, 0.28);
+
+  /* —— Motion —— */
+  --duration-fast: 150ms;
+  --duration-hover: 200ms;
+  --duration-base: 250ms;
+  --duration-medium: 300ms;
+  --duration-step: 400ms;
+  --duration-slow: 500ms;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-soft: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --gutter: 10rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  :root {
+    --gutter: 3.75rem;
+    --section-padding-y: 6.875rem;
+    --section-stack-gap: 2.5rem;
+    --card-padding: 1.5rem;
+    --nav-height: 4rem;
+  }
+}
+
+@media (max-width: 639px) {
+  :root {
+    --nav-height: 6.75rem;
+    --gutter: 1.25rem;
+    --section-padding-y: 3.75rem;
+    --section-stack-gap: 2rem;
+    --card-gap: 1rem;
+  }
+}
+
+[data-surface="dark"] {
+  --color-text-primary: var(--tenos-white);
+  --color-text-secondary: #cecfd2;
+  --color-text-tertiary: #95979d;
+  --color-text-brand: var(--tenos-brand-primary);
+  --color-text-link: var(--tenos-brand-primary);
+  --color-border-decorative: #22262f;
+  --color-border-control: #95979d;
+  --color-border-strong: var(--tenos-white);
+  --color-focus-ring: var(--tenos-brand-primary);
+  --color-bg-hover: rgba(255, 255, 255, 0.1);
+  color: var(--tenos-white);
+  background-color: var(--color-bg-inverse);
+}
