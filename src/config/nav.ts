@@ -1,0 +1,42 @@
+export type NavItem = {
+  label: string;
+  href: string;
+  /** Match against pathname or hash for aria-current */
+  match?: "home" | "about" | "contact";
+};
+
+/**
+ * Primary nav labels match the Claude Design export.
+ * About / Contact point to in-page anchors until dedicated pages are approved.
+ * Language toggle (ID / EN) lives in Header and sets `.pg[data-lang]`.
+ */
+export const primaryNav: NavItem[] = [
+  { label: "Home", href: "/", match: "home" },
+  { label: "About Us", href: "/#about", match: "about" },
+  { label: "Contact", href: "/#contact", match: "contact" },
+];
+
+export const headerCta = {
+  label: "Contact Us",
+  href: "/#contact",
+} as const;
+
+export const footerPageLinks: NavItem[] = [
+  { label: "Home", href: "/" },
+  { label: "About Us", href: "/#about" },
+  { label: "Contact", href: "/#contact" },
+];
+
+export const footerFocusLinks = [
+  {
+    label: "AI Systems Consulting",
+    href: "/#ai",
+    external: false,
+  },
+  {
+    label: "Digdeep Academy",
+    href: null as string | null,
+    external: true,
+    pendingLabel: "[Official Academy URL to be provided]",
+  },
+] as const;

@@ -1,26 +1,115 @@
 @import "tailwindcss";
+@import "../styles/tokens.css";
+@import "../styles/motion.css";
+@import "../styles/chrome.css";
+@import "../styles/homepage-export.css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
+/* Map design tokens into Tailwind utilities without circular var() refs */
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-brand-primary: var(--tenos-brand-primary);
+  --color-brand-primary-hover: var(--tenos-brand-primary-hover);
+  --color-brand-secondary: var(--tenos-brand-secondary);
+  --color-brand-accent: var(--tenos-brand-accent);
+  --color-brand-digdeep: var(--tenos-brand-digdeep);
+
+  --color-text-primary: var(--tenos-gray-900);
+  --color-text-secondary: var(--tenos-gray-700);
+  --color-text-tertiary: var(--tenos-gray-600);
+  --color-text-inverse: var(--tenos-white);
+  --color-text-on-brand: var(--tenos-gray-950);
+  --color-text-brand: #05777f;
+  --color-text-link: #05777f;
+
+  --color-bg-page: var(--tenos-white);
+  --color-bg-soft: var(--tenos-gray-50);
+  --color-bg-hover: var(--tenos-gray-100);
+  --color-bg-inverse: var(--tenos-gray-950);
+  --color-bg-brand-solid: var(--tenos-brand-primary);
+  --color-bg-brand-solid-hover: var(--tenos-brand-primary-hover);
+  --color-bg-brand-subtle: var(--tenos-brand-primary-subtle);
+  --color-bg-accent: var(--tenos-brand-secondary);
+
+  --color-border-decorative: var(--tenos-gray-200);
+  --color-border-secondary: var(--tenos-gray-200);
+  --color-border-control: var(--tenos-gray-500);
+  --color-border-strong: var(--tenos-gray-950);
+
+  --color-focus-ring: var(--tenos-gray-900);
+
+  --font-display: var(--font-roboto), system-ui, sans-serif;
+  --font-sans: var(--font-manrope), system-ui, sans-serif;
+
+  --radius-card: 1.5rem;
+  --radius-button: 62.5rem;
+
+  --shadow-nav: 0 0 0 1px #e9eaeb, 0 8px 24px rgba(10, 13, 18, 0.08);
+  --shadow-card: 0 12px 32px rgba(10, 13, 18, 0.05);
+  --shadow-cta: 0 10px 28px rgba(8, 186, 197, 0.28);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
   }
-}
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: var(--nav-height);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+  }
+
+  body {
+    margin: 0;
+    min-height: 100%;
+    background-color: var(--color-bg-page);
+    color: var(--color-text-primary);
+    font-family: var(--font-text);
+    font-size: var(--text-base);
+    line-height: var(--leading-normal);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  img,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  button {
+    font: inherit;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-focus-ring);
+    outline-offset: 2px;
+  }
 }

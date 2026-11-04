@@ -1,30 +1,54 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Manrope, Roboto } from "next/font/google";
+
+import { Footer } from "@/components/layout/Footer";
+import { Header } from "@/components/layout/Header";
+import { SkipLink } from "@/components/layout/SkipLink";
+import { siteSettings } from "@/content/site";
+import { LanguageProvider } from "@/lib/language";
+
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const roboto = Roboto({
+  variable: "--font-roboto",
   subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  display: "swap",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const manrope = Manrope({
+  variable: "--font-manrope",
   subsets: ["latin"],
+  weight: ["400", "500", "600", "700"],
+  display: "swap",
 });
 
 export const metadata: Metadata = {
-  title: "Tenos | AI Enablement for People & Organizations",
-  description:
-    "Tenos membantu individu dan organisasi memakai AI — dari literasi di Digdeep Academy sampai sistem cerdas yang dibuat sesuai proses kerja.",
+  title: {
+    default: siteSettings.defaultTitle,
+    template: `%s · ${siteSettings.siteName}`,
+  },
+  description: siteSettings.defaultDescription,
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({
+  children,
+}: Readonly<{
+  children: React.ReactNode;
+}>) {
   return (
     <html
-      lang="id"
-      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
+      lang="en"
+      className={`${roboto.variable} ${manrope.variable} h-full antialiased`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="flex min-h-full flex-col font-sans">
+        <LanguageProvider>
+          <SkipLink />
+          <Header />
+          {children}
+          <Footer />
+        </LanguageProvider>
+      </body>
     </html>
   );
 }

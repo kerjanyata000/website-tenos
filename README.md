@@ -28,6 +28,7 @@ Copy-Item .env.example .env.local
 | --- | --- |
 | `npm run dev` | Server pengembangan |
 | `npm run lint` | Pemeriksaan ESLint |
+| `npm run typecheck` | Pemeriksaan TypeScript |
 | `npm run build` | Build produksi |
 | `npm start` | Menjalankan hasil build |
 
@@ -35,6 +36,9 @@ Copy-Item .env.example .env.local
 
 ```
 src/app/          layout, halaman, dan gaya global
+src/components/   layout, section, dan UI homepage
+src/content/      copy & data halaman
+src/styles/       tokens, chrome, motion, homepage CSS
 public/           aset statis (ikon, gambar, logo)
 .env.example      variabel lingkungan yang aman untuk di-commit
 ```
