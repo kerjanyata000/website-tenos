@@ -13,6 +13,9 @@ export const siteSettings: SiteSettings = {
   whatsappNumber: "",
   whatsappMessage: "Hello Tenos, I would like to discuss our technology needs.",
   academyUrl: "https://www.digdeep.id/",
+  email: "",
+  /** Address from approved Figma footer (desktop). */
+  officeAddress: "Jl. Bango Raya No.31 B, Pd. Labu, Cilandak, Jakarta Selatan 12450",
   privacyUrl: "",
   social: [],
 };

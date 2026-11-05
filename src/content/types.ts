@@ -14,6 +14,10 @@ export interface SiteSettings {
   whatsappMessage: string;
   /** External Digdeep Academy URL. Empty until provided. */
   academyUrl: string;
+  /** Public contact email. Empty until provided. */
+  email: string;
+  /** Office address. Empty until provided. */
+  officeAddress: string;
   privacyUrl: string;
   social: SocialLink[];
 }

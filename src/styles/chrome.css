@@ -39,6 +39,79 @@
     0 8px 24px rgba(10, 13, 18, 0.06);
 }
 
+/* Desktop chrome defaults — burger hidden until tablet/mobile */
+.site-nav-burger {
+  display: none;
+}
+
+.site-nav-panel {
+  display: none;
+}
+
+/* Tablet/mobile: collapse links/lang/CTA into burger so CTA never overflows the pill */
+@media (max-width: 1023px) {
+  .site-nav-glass {
+    padding: 24px var(--gutter) 12px;
+  }
+
+  .site-nav-bar {
+    height: 64px;
+  }
+
+  .site-nav-inner {
+    gap: 0.5rem;
+    padding: 0.5rem 0.5rem 0.5rem 1rem;
+  }
+
+  .site-nav-logo {
+    padding-inline: 0;
+  }
+
+  .site-nav-logo-img {
+    height: 28px;
+  }
+
+  .site-nav-actions {
+    gap: 0.5rem;
+  }
+
+  .site-nav-desktop-links,
+  .site-nav-desktop-lang,
+  .site-nav-desktop-cta {
+    display: none !important;
+  }
+
+  .site-nav-burger {
+    display: inline-flex;
+  }
+
+  .site-nav-panel {
+    display: block;
+  }
+
+  .site-nav .nav-cta.btn,
+  .site-nav .nav-cta.btn-lg {
+    min-height: 44px;
+    padding: 0 18px;
+    font-size: 15px;
+    line-height: 22px;
+  }
+}
+
+@media (max-width: 639px) {
+  .site-nav-bar {
+    height: 60px;
+  }
+
+  .site-nav-inner {
+    padding-left: 1.25rem;
+  }
+
+  .site-nav-logo-img {
+    height: 1.75rem;
+  }
+}
+
 /* Match hero "Let's Talk" primary CTA (gradient + glow hover) */
 .site-nav .nav-cta.btn-p,
 .site-nav .site-nav-current {
@@ -100,8 +173,8 @@
 .soc-row {
   display: flex;
   flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 8px;
+  gap: 24px;
+  margin-top: 0;
 }
 
 .soc {
@@ -113,14 +186,16 @@
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  border: 1px solid #e8e8e8;
+  border: 2px solid #e9eaeb;
   background: #fff;
   color: #505156;
+  box-shadow: 0 6px 32px rgba(8, 186, 197, 0.1);
   outline: none;
   transition:
     background 280ms var(--ease-out),
     border-color 280ms var(--ease-out),
-    color 280ms var(--ease-out);
+    color 280ms var(--ease-out),
+    box-shadow 280ms var(--ease-out);
 }
 
 .soc-glyph {
