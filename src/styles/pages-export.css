@@ -35,7 +35,8 @@
 }
 
 /* ---------- page hero (soft brand/accent/secondary glow, no image) ---------- */
-.px-hero{position:relative;overflow:hidden;isolation:isolate;margin-top:calc(var(--navh)*-1);padding:calc(var(--navh) + 120px) 0 0;background:var(--px-soft)}
+/* Second padding term = distance from viewport top to hero copy; keep it above --navh for clearance */
+.px-hero{position:relative;overflow:hidden;isolation:isolate;margin-top:calc(var(--navh)*-1);padding:calc(var(--navh) + 184px) 0 0;background:var(--px-soft)}
 .pgx .px-hero + .sec{padding-top:112px}
 .px-hero-sm{padding-bottom:0}
 .px-hero-in{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start}
@@ -125,7 +126,7 @@
 
 /* ---------- tablet ---------- */
 @container pg (max-width:1023px){
-  .px-hero{padding:calc(var(--navh) + 88px) 0 0}
+  .px-hero{padding:calc(var(--navh) + 148px) 0 0}
   .pgx .px-hero + .sec{padding-top:104px}
   .px-split{grid-template-columns:minmax(0,1fr);gap:24px}
   .px-ct{grid-template-columns:minmax(0,1fr);gap:16px}
@@ -138,7 +139,7 @@
 }
 /* ---------- mobile ---------- */
 @container pg (max-width:639px){
-  .px-hero{padding:calc(var(--navh) + 56px) 0 0}
+  .px-hero{padding:calc(var(--navh) + 132px) 0 0}
   .pgx .px-hero + .sec{padding-top:72px}
   .px-vm,.px-two,.px-steps{margin-top:32px;gap:16px}
   .pgx .px-btns{margin-top:32px}
