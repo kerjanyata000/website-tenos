@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, type CSSProperties } from "react";
+import { type CSSProperties } from "react";
 
 import { ExportCta } from "@/components/sections/ExportCta";
 import { Reveal } from "@/components/ui/Reveal";
@@ -61,128 +61,29 @@ function WhyIcon({
   );
 }
 
-/** Yellow TENOS ring mark — same inline footprint as the former AI Orb. */
+/** Claude Design export `.tring` — yellow glass ring with hover hole-close. */
 function TenosRing() {
-  const rawId = useId();
-  const uid = `tenos-ring-${rawId.replace(/:/g, "")}`;
-  /* Outer r=42, inner r=26 — evenodd cutout keeps the center truly transparent */
-  const annulus =
-    "M50 8a42 42 0 1 0 .01 0zm0 16a26 26 0 1 1-.01 0z";
-
   return (
-    <span className="aitile" aria-hidden="true">
-      {/* Fixed footprint; visual layer scales on hover so headline text does not shift */}
-      <span className="tenos-viz">
-        <span className="tenos-ambient" />
-        <svg className="tenos-ring-svg" viewBox="0 0 100 100" fill="none">
-          <defs>
-            <linearGradient id={`${uid}-body`} x1="24%" y1="10%" x2="76%" y2="90%">
-              <stop offset="0%" stopColor="#FFFBE6" />
-              <stop offset="35%" stopColor="#FFE566" />
-              <stop offset="70%" stopColor="#FFD600" />
-              <stop offset="100%" stopColor="#FFD84A" />
-            </linearGradient>
-            <radialGradient id={`${uid}-shine`} cx="32%" cy="28%" r="58%">
-              <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.75" />
-              <stop offset="40%" stopColor="#FFFFFF" stopOpacity="0.2" />
-              <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
-            </radialGradient>
-            <radialGradient id={`${uid}-glass`} cx="70%" cy="60%" r="46%">
-              <stop offset="0%" stopColor="#5ED8E2" stopOpacity="0.14" />
-              <stop offset="60%" stopColor="#08BAC5" stopOpacity="0.04" />
-              <stop offset="100%" stopColor="#08BAC5" stopOpacity="0" />
-            </radialGradient>
-            <mask
-              id={`${uid}-mask`}
-              maskUnits="userSpaceOnUse"
-              x="0"
-              y="0"
-              width="100"
-              height="100"
-            >
-              <rect width="100" height="100" fill="#000" />
-              <circle cx="50" cy="50" r="42" fill="#fff" />
-              <circle cx="50" cy="50" r="26" fill="#000" />
-            </mask>
-            <filter
-              id={`${uid}-float`}
-              x="-40%"
-              y="-40%"
-              width="180%"
-              height="180%"
-              colorInterpolationFilters="sRGB"
-            >
-              <feDropShadow
-                dx="0"
-                dy="2.5"
-                stdDeviation="2"
-                floodColor="#0B0D12"
-                floodOpacity="0.1"
-              />
-              <feDropShadow
-                dx="0"
-                dy="0"
-                stdDeviation="2.8"
-                floodColor="#FFD600"
-                floodOpacity="0.28"
-              />
-            </filter>
-          </defs>
-
-          <g className="tenos-ring-stack" filter={`url(#${uid}-float)`}>
-            <path
-              className="tenos-ring-body"
-              d={annulus}
-              fill={`url(#${uid}-body)`}
-              fillRule="evenodd"
-            />
-            <path
-              className="tenos-ring-shine"
-              d={annulus}
-              fill={`url(#${uid}-shine)`}
-              fillRule="evenodd"
-            />
-            <path
-              className="tenos-ring-glass"
-              d={annulus}
-              fill={`url(#${uid}-glass)`}
-              fillRule="evenodd"
-            />
-            <g className="tenos-blobs" mask={`url(#${uid}-mask)`}>
-              <circle className="tenos-blob tenos-blob-a" cx="34" cy="30" r="14" fill="#FFFFFF" fillOpacity="0.4" />
-              <circle className="tenos-blob tenos-blob-b" cx="70" cy="64" r="11" fill="#5ED8E2" fillOpacity="0.12" />
-              <circle className="tenos-blob tenos-blob-c" cx="58" cy="24" r="10" fill="#FFE566" fillOpacity="0.45" />
-            </g>
-          </g>
-
-          <g className="tenos-orbit-g tenos-orbit-a">
-            <ellipse
-              className="tenos-orbit"
-              cx="50"
-              cy="50"
-              rx="46"
-              ry="31"
-              stroke="#FFD600"
-              strokeWidth="1.1"
-            />
-            <circle className="tenos-particle" cx="96" cy="50" r="2" fill="#FFD600" />
-            <circle className="tenos-particle tenos-particle-dim" cx="18" cy="68" r="1.35" fill="#FFE566" />
-          </g>
-          <g className="tenos-orbit-g tenos-orbit-b">
-            <ellipse
-              className="tenos-orbit"
-              cx="50"
-              cy="50"
-              rx="42"
-              ry="42"
-              stroke="#FFD600"
-              strokeWidth="0.9"
-              transform="rotate(48 50 50)"
-            />
-            <circle className="tenos-particle" cx="50" cy="8" r="1.6" fill="#FFE566" />
-          </g>
-        </svg>
-      </span>
+    <span className="tring" role="img" aria-label="Tenos">
+      <i className="tr-glass" />
+      <svg className="tr-ic" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+        <g className="tr-star">
+          <path
+            d="M98 71C101 90 111 100 130 103C111 106 101 116 98 135C95 116 85 106 66 103C85 100 95 90 98 71Z"
+            fill="#fff"
+            transform="rotate(10 98 103)"
+          />
+        </g>
+        <g className="tr-plus">
+          <path
+            d="M129 75v14M122 82h14"
+            stroke="#fff"
+            strokeWidth="3.4"
+            strokeLinecap="round"
+          />
+        </g>
+        <circle className="tr-dot" cx="70" cy="121" r="6.5" fill="#fff" />
+      </svg>
     </span>
   );
 }
@@ -301,26 +202,30 @@ export function HeroWhySection() {
               {why.heading}
             </h2>
           </Reveal>
-          <div className="wy-g2">
-            <div className="wy-mid">
-              <WhyLogoReveal />
+          <div className="wy-g2 wy-3 wy-scrolly">
+            <div className="wy-pin">
+              <div className="wy-list">
+                {why.reasons.map((reason, index) => (
+                  <article
+                    key={reason.n}
+                    className={`wy-c wy-c${index + 1} wy-lft`}
+                    style={{ ["--i" as string]: index + 1 }}
+                  >
+                    <div className="wy-top">
+                      <span className="wy-n">{reason.n}</span>
+                      <span className="wy-i">
+                        <WhyIcon type={reason.icon} />
+                      </span>
+                    </div>
+                    <h3 className="wy-t">{reason.title}</h3>
+                    <p className="wy-d">{reason.description}</p>
+                  </article>
+                ))}
+              </div>
+              <div className="wy-mid">
+                <WhyLogoReveal />
+              </div>
             </div>
-            {why.reasons.map((reason, index) => (
-              <article
-                key={reason.n}
-                className={`wy-c wy-c${index + 1} ${reason.side === "left" ? "wy-lft" : "wy-rgt"}`}
-                style={{ ["--i" as string]: index + 1 }}
-              >
-                <div className="wy-top">
-                  <span className="wy-n">{reason.n}</span>
-                  <span className="wy-i">
-                    <WhyIcon type={reason.icon} />
-                  </span>
-                </div>
-                <h3 className="wy-t">{reason.title}</h3>
-                <p className="wy-d">{reason.description}</p>
-              </article>
-            ))}
           </div>
         </div>
       </section>

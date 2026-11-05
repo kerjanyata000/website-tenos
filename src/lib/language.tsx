@@ -14,8 +14,25 @@ import type { Lang } from "@/content/types";
 
 export type { Lang };
 
-/** Flip to true when bilingual launch is ready. */
-export const LANGUAGE_TOGGLE_ENABLED = false;
+const STORAGE_KEY = "tenos-lang";
+
+function readStoredLang(): Lang {
+  try {
+    const stored = window.localStorage.getItem(STORAGE_KEY);
+    if (stored === "en" || stored === "id") return stored;
+  } catch {
+    /* ignore */
+  }
+  return "en";
+}
+
+function applyDocumentLang(lang: Lang) {
+  document.documentElement.lang = lang;
+  document.querySelectorAll(".pg").forEach((el) => {
+    el.setAttribute("data-lang", lang);
+    el.setAttribute("lang", lang);
+  });
+}
 
 type LanguageContextValue = {
   lang: Lang;
@@ -25,29 +42,48 @@ type LanguageContextValue = {
 
 const LanguageContext = createContext<LanguageContextValue | null>(null);
 
-function applyDocumentLang(lang: Lang) {
-  document.documentElement.lang = lang;
-  document.querySelector(".pg")?.setAttribute("data-lang", lang);
-}
-
+/**
+ * Language always hydrates as `"en"` (same as SSR), then syncs the saved
+ * preference from localStorage after mount. This avoids hydration mismatches
+ * when a stored `"id"` preference would otherwise differ from the server HTML.
+ */
 export function LanguageProvider({ children }: { children: ReactNode }) {
   const [lang, setLangState] = useState<Lang>("en");
 
-  const setLang = useCallback((next: Lang) => {
-    if (!LANGUAGE_TOGGLE_ENABLED) return;
-    setLangState(next);
-    applyDocumentLang(next);
+  useEffect(() => {
+    const stored = readStoredLang();
+    setLangState(stored);
+    applyDocumentLang(stored);
+
+    const onStorage = (event: StorageEvent) => {
+      if (event.key !== STORAGE_KEY) return;
+      const next = readStoredLang();
+      setLangState(next);
+      applyDocumentLang(next);
+    };
+
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
   }, []);
 
   useEffect(() => {
-    applyDocumentLang(LANGUAGE_TOGGLE_ENABLED ? lang : "en");
+    applyDocumentLang(lang);
   }, [lang]);
+
+  const setLang = useCallback((next: Lang) => {
+    try {
+      window.localStorage.setItem(STORAGE_KEY, next);
+    } catch {
+      /* ignore */
+    }
+    setLangState(next);
+  }, []);
 
   const value = useMemo(
     () => ({
-      lang: LANGUAGE_TOGGLE_ENABLED ? lang : "en",
+      lang,
       setLang,
-      toggleEnabled: LANGUAGE_TOGGLE_ENABLED,
+      toggleEnabled: true,
     }),
     [lang, setLang],
   );

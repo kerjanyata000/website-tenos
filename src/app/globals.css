@@ -3,6 +3,7 @@
 @import "../styles/motion.css";
 @import "../styles/chrome.css";
 @import "../styles/homepage-export.css";
+@import "../styles/pages-export.css";
 
 /* Map design tokens into Tailwind utilities without circular var() refs */
 @theme inline {

@@ -104,8 +104,8 @@ export function Footer() {
 
   const pageLinks = [
     { label: footer.home, href: "/" },
-    { label: footer.about, href: "/#about" },
-    { label: footer.contactLink, href: "/#contact" },
+    { label: footer.about, href: "/about" },
+    { label: footer.contactLink, href: "/contact" },
   ];
 
   return (

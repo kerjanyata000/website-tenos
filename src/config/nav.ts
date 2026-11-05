@@ -1,30 +1,29 @@
 export type NavItem = {
   label: string;
   href: string;
-  /** Match against pathname or hash for aria-current */
+  /** Match against pathname for aria-current */
   match?: "home" | "about" | "contact";
 };
 
 /**
  * Primary nav labels match the Claude Design export.
- * About / Contact point to in-page anchors until dedicated pages are approved.
- * Language toggle (ID / EN) lives in Header and sets `.pg[data-lang]`.
+ * Dedicated About / Contact routes mirror Nav.dc.html destinations.
  */
 export const primaryNav: NavItem[] = [
   { label: "Home", href: "/", match: "home" },
-  { label: "About Us", href: "/#about", match: "about" },
-  { label: "Contact", href: "/#contact", match: "contact" },
+  { label: "About Us", href: "/about", match: "about" },
+  { label: "Contact", href: "/contact", match: "contact" },
 ];
 
 export const headerCta = {
   label: "Contact Us",
-  href: "/#contact",
+  href: "/contact",
 } as const;
 
 export const footerPageLinks: NavItem[] = [
   { label: "Home", href: "/" },
-  { label: "About Us", href: "/#about" },
-  { label: "Contact", href: "/#contact" },
+  { label: "About Us", href: "/about" },
+  { label: "Contact", href: "/contact" },
 ];
 
 export const footerFocusLinks = [

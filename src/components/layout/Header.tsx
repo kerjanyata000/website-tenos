@@ -14,6 +14,8 @@ import { cn } from "@/lib/cn";
 
 function isCurrent(match: "home" | "about" | "contact" | undefined, pathname: string) {
   if (match === "home") return pathname === "/";
+  if (match === "about") return pathname.startsWith("/about");
+  if (match === "contact") return pathname.startsWith("/contact");
   return false;
 }
 
@@ -61,8 +63,8 @@ export function Header() {
 
   const primaryNav = [
     { label: copy.nav.home, href: "/", match: "home" as const },
-    { label: copy.nav.about, href: "/#about", match: "about" as const },
-    { label: copy.nav.contact, href: "/#contact", match: "contact" as const },
+    { label: copy.nav.about, href: "/about", match: "about" as const },
+    { label: copy.nav.contact, href: "/contact", match: "contact" as const },
   ];
 
   useEffect(() => {
@@ -141,7 +143,7 @@ export function Header() {
               ) : null}
 
               <div className="max-[819px]:hidden">
-                <ExportCta href="/#contact" className="nav-cta">
+                <ExportCta href="/contact" className="nav-cta">
                   {copy.nav.contactCta}
                 </ExportCta>
               </div>
@@ -201,7 +203,7 @@ export function Header() {
                   />
                 ) : null}
                 <ExportCta
-                  href="/#contact"
+                  href="/contact"
                   className="nav-cta flex-1"
                   onClick={() => setMenuOpen(false)}
                 >

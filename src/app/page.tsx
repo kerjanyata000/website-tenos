@@ -10,7 +10,7 @@ import {
 
 export default function Home() {
   return (
-    <main id="main" className="pg" data-lang="en">
+    <main id="main" className="pg" data-lang="en" lang="en">
       <div className="rs">
         <HeroWhySection />
         <AboutSection />

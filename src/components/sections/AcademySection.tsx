@@ -227,7 +227,7 @@ export function AcademySection() {
           </Reveal>
         </div>
 
-        <div className="af2s">
+        <div className="af2s af2-3">
           {academy.features.map((feature, index) => (
             <Reveal
               className="af2"
