@@ -3,9 +3,9 @@
 import { type CSSProperties } from "react";
 
 import { ExportCta } from "@/components/sections/ExportCta";
+import { LocaleText } from "@/components/ui/LocaleText";
 import { Reveal } from "@/components/ui/Reveal";
-import { heroDisplay } from "@/content/homepage";
-import { useHomepageCopy } from "@/hooks/useHomepageCopy";
+import { heroDisplay, homepageCopy } from "@/content/homepage";
 
 import { WhyLogoReveal } from "./why/WhyLogoReveal";
 
@@ -26,40 +26,60 @@ const bubbleVars = [
   { s: "10px", x: "75%", t: "18s", d: "-16s", r: "673px", dx: "3px" },
 ] as const;
 
-function WhyIcon({
-  type,
-}: {
-  type: "spark" | "target" | "arrow" | "learn";
-}) {
-  if (type === "spark") {
-    return (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-        <path d="M10 3l2.2 6.3 6.3 2.2-6.3 2.2L10 20l-2.2-6.3L1.5 11.5l6.3-2.2z" />
-      </svg>
-    );
-  }
-  if (type === "target") {
-    return (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
-        <circle cx="12" cy="12" r="8" />
-        <circle cx="12" cy="12" r="3" />
-      </svg>
-    );
-  }
-  if (type === "arrow") {
-    return (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
-        <path d="M4 12h16M14 6l6 6-6 6" />
-      </svg>
-    );
-  }
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+const { en, id } = homepageCopy;
+
+const whyIcons = {
+  learn: (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
       <path d="M3 9l9-5 9 5-9 5-9-5z" />
       <path d="M7 11.5V16c0 1.2 2.2 3 5 3s5-1.8 5-3v-4.5" />
     </svg>
-  );
-}
+  ),
+  bolt: (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M13 3L5 13.5h6L10 21l8-10.5h-6L13 3z" />
+    </svg>
+  ),
+  systems: (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <rect x="4" y="4" width="7" height="7" rx="2" />
+      <rect x="13" y="13" width="7" height="7" rx="2" />
+      <path d="M11 7.5h3.5a2 2 0 0 1 2 2V13" />
+    </svg>
+  ),
+} as const;
+
+const reasonIcons = [whyIcons.learn, whyIcons.bolt, whyIcons.systems] as const;
 
 /** Claude Design export `.tring` — yellow glass ring with hover hole-close. */
 function TenosRing() {
@@ -129,9 +149,17 @@ function SimulatedClientLogos({ note }: { note: string }) {
   );
 }
 
-export function HeroWhySection() {
-  const { hero, why } = useHomepageCopy();
+function LeadStrong({ parts }: { parts: [string, string, string] }) {
+  return (
+    <>
+      {parts[0]}
+      <strong>{parts[1]}</strong>
+      {parts[2]}
+    </>
+  );
+}
 
+export function HeroWhySection() {
   return (
     <div className="hw">
       <div className="hero-glow" aria-hidden="true" />
@@ -152,25 +180,29 @@ export function HeroWhySection() {
             </span>
           </h1>
           <div className="lead">
-            <p>
-              {hero.lead[0]}
-              <strong>{hero.lead[1]}</strong>
-              {hero.lead[2]}
+            <p className="en">
+              <LeadStrong parts={en.hero.lead} />
             </p>
+            <span className="id">
+              <LeadStrong parts={id.hero.lead} />
+            </span>
           </div>
           <div className="btns">
-            <ExportCta href={hero.primaryCta.href} variant="primary">
-              {hero.primaryCta.label}
+            <ExportCta href={en.hero.primaryCta.href} variant="primary">
+              <LocaleText en={en.hero.primaryCta.label} id={id.hero.primaryCta.label} />
             </ExportCta>
-            <ExportCta href={hero.secondaryCta.href} variant="ghost">
-              {hero.secondaryCta.label}
+            <ExportCta href={en.hero.secondaryCta.href} variant="ghost">
+              <LocaleText
+                en={en.hero.secondaryCta.label}
+                id={id.hero.secondaryCta.label}
+              />
             </ExportCta>
           </div>
         </div>
         <div className="clients">
           <div className="wrap">
-            <p className="sr-only">{hero.clientsNote}</p>
-            <SimulatedClientLogos note={hero.clientsNote} />
+            <p className="sr-only">{en.hero.clientsNote}</p>
+            <SimulatedClientLogos note={en.hero.clientsNote} />
           </div>
         </div>
       </section>
@@ -196,31 +228,39 @@ export function HeroWhySection() {
         <div className="wrap">
           <Reveal className="wy-hd">
             <span className="eyebrow" style={{ fontSize: 14, color: "#ffffff" }}>
-              {why.eyebrow}
+              <LocaleText en={en.why.eyebrow} id={id.why.eyebrow} />
             </span>
             <h2 className="wy-h2" id="wy-h">
-              {why.heading}
+              <LocaleText en={en.why.heading} id={id.why.heading} />
             </h2>
           </Reveal>
           <div className="wy-g2 wy-3 wy-scrolly">
             <div className="wy-pin">
               <div className="wy-list">
-                {why.reasons.map((reason, index) => (
-                  <article
-                    key={reason.n}
-                    className={`wy-c wy-c${index + 1} wy-lft`}
-                    style={{ ["--i" as string]: index + 1 }}
-                  >
-                    <div className="wy-top">
-                      <span className="wy-n">{reason.n}</span>
-                      <span className="wy-i">
-                        <WhyIcon type={reason.icon} />
-                      </span>
-                    </div>
-                    <h3 className="wy-t">{reason.title}</h3>
-                    <p className="wy-d">{reason.description}</p>
-                  </article>
-                ))}
+                {en.why.reasons.map((reason, index) => {
+                  const idReason = id.why.reasons[index];
+                  return (
+                    <article
+                      key={reason.n}
+                      className={`wy-c wy-c${index + 1} wy-lft`}
+                      style={{ ["--i" as string]: index + 1 }}
+                    >
+                      <div className="wy-top">
+                        <span className="wy-n">{reason.n}</span>
+                        <span className="wy-i">{reasonIcons[index]}</span>
+                      </div>
+                      <h3 className="wy-t">
+                        <LocaleText en={reason.title} id={idReason.title} />
+                      </h3>
+                      <p className="wy-d">
+                        <LocaleText
+                          en={reason.description}
+                          id={idReason.description}
+                        />
+                      </p>
+                    </article>
+                  );
+                })}
               </div>
               <div className="wy-mid">
                 <WhyLogoReveal />

@@ -117,23 +117,23 @@ const en = {
     slides: [
       {
         type: "image" as const,
-        src: "/images/academy/academy-photo-1.png",
+        src: "/images/academy/academy-photo-1.avif",
+        alt: "Digdeep Academy offline training session with participants",
+      },
+      {
+        type: "image" as const,
+        src: "/images/academy/academy-photo-2.avif",
+        alt: "Hands-on Digdeep Academy offline workshop",
+      },
+      {
+        type: "image" as const,
+        src: "/images/academy/academy-photo-3.avif",
         alt: "Digdeep Academy online training session",
       },
       {
         type: "image" as const,
-        src: "/images/academy/academy-photo-2.png",
-        alt: "Participants learning AI tools in Digdeep Academy online class",
-      },
-      {
-        type: "image" as const,
-        src: "/images/academy/academy-photo-3.png",
-        alt: "Digdeep Academy offline workshop with participants",
-      },
-      {
-        type: "image" as const,
-        src: "/images/academy/academy-photo-4.png",
-        alt: "Hands-on Digdeep Academy offline training session",
+        src: "/images/academy/academy-photo-4.avif",
+        alt: "Participants learning in Digdeep Academy online class",
       },
     ],
   },
@@ -412,23 +412,23 @@ const id: typeof en = {
     slides: [
       {
         type: "image" as const,
-        src: "/images/academy/academy-photo-1.png",
+        src: "/images/academy/academy-photo-1.avif",
+        alt: "Sesi pelatihan offline Digdeep Academy bersama peserta",
+      },
+      {
+        type: "image" as const,
+        src: "/images/academy/academy-photo-2.avif",
+        alt: "Workshop hands-on Digdeep Academy secara offline",
+      },
+      {
+        type: "image" as const,
+        src: "/images/academy/academy-photo-3.avif",
         alt: "Sesi pelatihan online Digdeep Academy",
       },
       {
         type: "image" as const,
-        src: "/images/academy/academy-photo-2.png",
-        alt: "Peserta belajar tools AI di kelas online Digdeep Academy",
-      },
-      {
-        type: "image" as const,
-        src: "/images/academy/academy-photo-3.png",
-        alt: "Workshop offline Digdeep Academy bersama peserta",
-      },
-      {
-        type: "image" as const,
-        src: "/images/academy/academy-photo-4.png",
-        alt: "Sesi pelatihan hands-on Digdeep Academy secara offline",
+        src: "/images/academy/academy-photo-4.avif",
+        alt: "Peserta belajar di kelas online Digdeep Academy",
       },
     ],
   },

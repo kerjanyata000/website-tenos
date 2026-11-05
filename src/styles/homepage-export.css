@@ -373,12 +373,15 @@ body{margin:0;background:#fff}
 .cs::after{content:"";position:absolute;left:0;right:0;bottom:0;height:34%;background:linear-gradient(180deg,rgba(0,0,0,0),rgba(0,0,0,.45));pointer-events:none;z-index:1}
 .cbars{position:absolute;left:24px;right:24px;bottom:14px;display:flex;gap:8px;z-index:2}
 .cb{flex:1;height:20px;display:flex;align-items:center;border:0;background:transparent;padding:0;cursor:pointer}
-.cb span{display:block;width:100%;height:5px;border-radius:99px;background:rgba(255,255,255,.4);transition:background 300ms cubic-bezier(.4,0,.2,1)}
-.cb[aria-current="true"] span{background:#fff}
-@media (hover:hover){.cb:hover span{background:rgba(255,255,255,.75)}}
+.cb-track{display:block;width:100%;height:5px;border-radius:99px;background:rgba(255,255,255,.4);overflow:hidden}
+.cb-fill{display:block;height:100%;width:0;border-radius:inherit;background:#fff;transform-origin:left center}
+.cb-fill.is-done{width:100%}
+.cb-fill.is-active{animation:cbgrow var(--cb-ms,4000ms) linear forwards}
+@keyframes cbgrow{from{width:0}to{width:100%}}
+@media (hover:hover){.cb:hover .cb-track{background:rgba(255,255,255,.55)}}
 @container pg (max-width:1023px){.acard{padding:32px}.cs{min-height:0;aspect-ratio:4/3}.alogo{height:32px}}
 @container pg (max-width:639px){.alogo{height:28px}.acard{padding:20px}.acol{gap:20px}.acol .lead{font-size:16px;line-height:26px}.cbars{left:16px;right:16px}}
-@media (prefers-reduced-motion:reduce){.csl,.cb span{transition:none}}
+@media (prefers-reduced-motion:reduce){.csl{transition:none}.cb-fill.is-active{animation:none;width:100%}}
 .pg .acol .btn-p,.pg .acol .btn-p:hover{color:var(--color-text-white)}
 
 /* AI Consulting: interactive 3D layered stack (pure CSS 3D) + step selector */
@@ -1077,7 +1080,8 @@ body{margin:0;background:#fff}
 .hw .wy-3 .wy-c::after{top:14px}
 .wy-3 .wy-mid{display:flex;align-items:center}
 .wy-3 .wy-mid .rb-stage{flex:1;top:180px}
-@media (max-height:1400px){.wy-3 .wy-mid .rb-stage{top:calc(50vh - 210px)}}
+.wy-3 .wy-mid .rb-stage.wy-ring-stage{top:auto;max-height:420px;margin-block:auto}
+@media (max-height:1400px){.wy-3 .wy-mid .rb-stage:not(.wy-ring-stage){top:calc(50vh - 210px)}}
 @container pg (max-width:1023px){
   .hw .wy-g2.wy-3{row-gap:200px}
   .hw .wy-g2.wy-3::before{left:15px}
@@ -1311,139 +1315,17 @@ body{margin:0;background:#fff}
 }
 @container pg (max-width:1023px){.pcs{grid-template-columns:minmax(0,1fr)}}
 @container pg (max-width:639px){.pc-main .pc-t,.pc-sec .pc-t{font-size:24px;line-height:32px}}
-/* Logo stage — keep sticky footprint previously used by the robot */
-.rb-stage{position:sticky;top:180px;height:420px;perspective:1000px;display:flex;align-items:center;justify-content:center}
-.lg-stage{--lg-size:min(240px,72%)}
-.lg-float{transform-style:preserve-3d;animation:lgfloat 5.5s ease-in-out infinite}
-.lg-parallax{transform-style:preserve-3d;transform:rotateX(4deg) rotateY(-6deg)}
-.lg-scene{position:relative;width:var(--lg-size);height:var(--lg-size);transform-style:preserve-3d;transition:transform .45s cubic-bezier(.22,.7,.2,1)}
-.lg-morph{position:relative;width:100%;height:100%;transform-style:preserve-3d}
-.lg-svg{display:block;width:100%;height:100%;overflow:visible;transform-style:preserve-3d}
-.lg-ambient{position:absolute;inset:-18%;border-radius:50%;pointer-events:none;opacity:.55;
-  background:radial-gradient(closest-side,rgba(253,210,1,.28) 0%,rgba(253,210,1,.12) 42%,rgba(253,210,1,0) 68%);
-  -webkit-mask-image:radial-gradient(circle,transparent 34%,#000 46%,#000 62%,transparent 72%);
-  mask-image:radial-gradient(circle,transparent 34%,#000 46%,#000 62%,transparent 72%);
-  transition:opacity .45s ease,transform .45s ease}
-.lg-construct,.lg-sketch,.lg-wire,.lg-solid,.lg-orbit{transform-origin:46.5px 46.5px}
-.lg-guide{fill:none;stroke:rgba(253,210,1,.42);stroke-width:.7;stroke-linecap:round;stroke-dasharray:1.2 2.4;opacity:0}
-.lg-guide-ring{stroke-dasharray:2.5 4;stroke-opacity:.35}
-.lg-sketch{stroke-dasharray:100;stroke-dashoffset:100;opacity:0}
-.lg-wire{opacity:0}
-.lg-wire-orbit{fill:none;stroke:rgba(255,229,102,.38);stroke-width:.65;stroke-dasharray:3 4}
-.lg-wire-path{stroke-dasharray:100;stroke-dashoffset:0}
-.lg-orbit{opacity:0;fill:none;stroke:rgba(253,210,1,.35);stroke-width:.55;stroke-dasharray:2 5;pointer-events:none;transition:opacity .35s ease}
-.lg-orbit{transform-box:fill-box;transform-origin:center}
-.lg-spark{fill:#FFF6B0;stroke:none}
-
-/* Static / no-JS fallback: final bright mark (center stays open via evenodd path) */
-.lg-solid{opacity:1}
-.lg-construct,.lg-sketch,.lg-wire{opacity:0}
-.js-reveal .lg-stage:not(.is-on) .lg-solid{opacity:0}
-.js-reveal .lg-stage:not(.is-on) .lg-sketch{opacity:.85;stroke-dashoffset:100}
-.js-reveal .lg-stage:not(.is-on) .lg-ambient{opacity:0}
-.js-reveal .lg-stage.is-on .lg-morph{animation:lgMorph 4.2s cubic-bezier(.22,.7,.2,1) both}
-.js-reveal .lg-stage.is-on .lg-guide-h{animation:lgGuide 4.2s ease both}
-.js-reveal .lg-stage.is-on .lg-guide-v{animation:lgGuide 4.2s ease .08s both}
-.js-reveal .lg-stage.is-on .lg-guide-arc{animation:lgGuide 4.2s ease .14s both}
-.js-reveal .lg-stage.is-on .lg-guide-tick{animation:lgGuide 4.2s ease .2s both}
-.js-reveal .lg-stage.is-on .lg-guide-ring{animation:lgGuide 4.2s ease .1s both}
-.js-reveal .lg-stage.is-on .lg-sketch{animation:lgSketch 4.2s ease both}
-.js-reveal .lg-stage.is-on .lg-wire{animation:lgWire 4.2s ease both}
-.js-reveal .lg-stage.is-on .lg-solid{animation:lgSolid 4.2s ease both}
-.js-reveal .lg-stage.is-on .lg-ambient{animation:lgAmbient 4.2s ease both}
+/* Why mid — Intelligence Prism (transparent WebGL canvas) */
+.wy-ring-stage,.wy-prism-stage{height:420px;display:flex;align-items:center;justify-content:center;position:relative;top:auto!important;width:100%;background:transparent;perspective:none}
+.wy-prism-frame{position:relative;width:min(100%,420px);aspect-ratio:1;display:flex;align-items:center;justify-content:center;background:transparent}
+.wy-prism-canvas{display:block;width:100%;height:100%;background:transparent!important;outline:none;touch-action:none}
+.wy-ring-img,.wy-prism-fallback{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:contain;pointer-events:none;user-select:none;-webkit-user-drag:none}
+.wy-3 .wy-mid .wy-ring-stage,.wy-scrolly .wy-mid .wy-ring-stage{flex:1 1 auto;width:100%;height:100%;max-height:420px;margin:auto 0;top:auto!important}
+@container pg (min-width:640px) and (max-width:1023px){
+  .wy-ring-stage,.wy-prism-stage{height:340px;max-height:340px}
+  .wy-prism-frame{width:min(100%,300px);aspect-ratio:auto;height:100%}
+}
 @container pg (max-width:639px){
-  .js-reveal .lg-stage.is-on .lg-morph,
-  .js-reveal .lg-stage.is-on .lg-guide-h,
-  .js-reveal .lg-stage.is-on .lg-guide-v,
-  .js-reveal .lg-stage.is-on .lg-guide-arc,
-  .js-reveal .lg-stage.is-on .lg-guide-tick,
-  .js-reveal .lg-stage.is-on .lg-guide-ring,
-  .js-reveal .lg-stage.is-on .lg-sketch,
-  .js-reveal .lg-stage.is-on .lg-wire,
-  .js-reveal .lg-stage.is-on .lg-solid,
-  .js-reveal .lg-stage.is-on .lg-ambient{animation-duration:2.8s}
+  .wy-ring-stage,.wy-prism-stage{height:240px;max-height:240px;justify-content:center;padding-right:0}
+  .wy-prism-frame{width:min(88%,280px);aspect-ratio:auto;height:100%}
 }
-
-@keyframes lgfloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
-@keyframes lgMorph{
-  0%,22%{transform:rotateX(52deg) rotateY(-28deg) scale(.9)}
-  48%{transform:rotateX(28deg) rotateY(-14deg) scale(.94)}
-  68%{transform:rotateX(10deg) rotateY(-6deg) scale(.98)}
-  100%{transform:rotateX(0deg) rotateY(0deg) scale(1)}
-}
-@keyframes lgGuide{
-  0%{opacity:0}
-  8%{opacity:.7}
-  28%{opacity:.55}
-  42%{opacity:0}
-  100%{opacity:0}
-}
-@keyframes lgSketch{
-  0%{opacity:0;stroke-dashoffset:100}
-  6%{opacity:.9}
-  28%{opacity:.95;stroke-dashoffset:0}
-  42%{opacity:.35}
-  55%{opacity:0;stroke-dashoffset:0}
-  100%{opacity:0;stroke-dashoffset:0}
-}
-@keyframes lgWire{
-  0%,24%{opacity:0}
-  32%{opacity:.95}
-  52%{opacity:1}
-  68%{opacity:.25}
-  78%{opacity:0}
-  100%{opacity:0}
-}
-@keyframes lgSolid{
-  0%,48%{opacity:0;filter:brightness(1.05)}
-  62%{opacity:.55}
-  78%{opacity:1;filter:brightness(1.08)}
-  100%{opacity:1;filter:none}
-}
-@keyframes lgAmbient{
-  0%,55%{opacity:0;transform:scale(.85)}
-  78%{opacity:.45;transform:scale(1)}
-  100%{opacity:.55;transform:scale(1)}
-}
-@keyframes lgParallax{
-  from{transform:rotateX(6deg) rotateY(-12deg)}
-  to{transform:rotateX(2deg) rotateY(10deg)}
-}
-
-/* scroll: subtle logo parallax + card side slides (cards unchanged) */
-@supports (animation-timeline:view()){
-  @media (max-height:1400px) and (prefers-reduced-motion:no-preference){
-    .wy{view-timeline-name:--wyt}
-    .lg-parallax{animation:lgParallax linear both;animation-timeline:--wyt;animation-range:cover 10% cover 90%}
-    .wy-lft{animation:wyleft linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
-    .wy-rgt{animation:wyright linear both;animation-timeline:view();animation-range:entry 0% cover 40%}
-  }
-}
-@keyframes wyleft{from{opacity:0;transform:translateX(-90px) scale(.94)}to{opacity:1;transform:none}}
-@keyframes wyright{from{opacity:0;transform:translateX(90px) scale(.94)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){
-  .lg-float{animation:none}
-  .js-reveal .lg-stage .lg-morph,
-  .js-reveal .lg-stage .lg-guide-h,
-  .js-reveal .lg-stage .lg-guide-v,
-  .js-reveal .lg-stage .lg-guide-arc,
-  .js-reveal .lg-stage .lg-guide-tick,
-  .js-reveal .lg-stage .lg-guide-ring,
-  .js-reveal .lg-stage .lg-sketch,
-  .js-reveal .lg-stage .lg-wire,
-  .js-reveal .lg-stage .lg-solid,
-  .js-reveal .lg-stage .lg-ambient{animation:none!important}
-  .js-reveal .lg-stage .lg-solid,.lg-solid{opacity:1}
-  .js-reveal .lg-stage .lg-construct,.js-reveal .lg-stage .lg-sketch,.js-reveal .lg-stage .lg-wire{opacity:0}
-  .js-reveal .lg-stage .lg-ambient{opacity:.45;transform:none}
-  .lg-parallax{animation:none!important;transform:none}
-}
-@media (hover:hover){
-  .lg-stage:hover .lg-scene{transform:scale(1.06)}
-  .lg-stage:hover .lg-ambient{opacity:.85;transform:scale(1.08)}
-  .lg-stage:hover .lg-orbit{opacity:.7}
-  .lg-stage:hover .lg-orbit-a{animation:lgOrbitSpin 7s linear infinite}
-  .lg-stage:hover .lg-orbit-b{animation:lgOrbitSpin 9s linear infinite reverse}
-}
-@keyframes lgOrbitSpin{to{transform:rotate(360deg)}}
-/* end logo reveal overlay */

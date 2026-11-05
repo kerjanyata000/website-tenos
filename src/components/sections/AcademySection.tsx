@@ -101,6 +101,7 @@ export function AcademySection() {
     }
     timerRef.current = window.setInterval(() => {
       setSlide((s) => (s % slideCount) + 1);
+      setProgressKey((k) => k + 1);
     }, SLIDE_MS);
   }, [clearTimer, slideCount]);
 
