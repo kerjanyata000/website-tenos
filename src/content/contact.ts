@@ -16,11 +16,16 @@ export type ContactCopy = {
     numberLabel: string;
     numberPlaceholder: string;
   };
-  channels: Array<{
-    key: "email" | "office" | "hours" | "social";
-    title: string;
-    body: string;
-  }>;
+  channels: {
+    email: { title: string; placeholder: string };
+    office: { title: string; placeholder: string };
+    hours: { title: string; placeholder: string };
+    social: {
+      title: string;
+      brands: string;
+      linksPlaceholder: string;
+    };
+  };
 };
 
 const en: ContactCopy = {
@@ -40,16 +45,19 @@ const en: ContactCopy = {
     numberLabel: "WhatsApp:",
     numberPlaceholder: "[number to be provided]",
   },
-  channels: [
-    { key: "email", title: "Email", body: "[email to be provided]" },
-    { key: "office", title: "Office", body: "[office address to be provided]" },
-    { key: "hours", title: "Working hours", body: "[hours to be provided]" },
-    {
-      key: "social",
-      title: "Social",
-      body: "Instagram · LinkedIn [links to be provided]",
+  channels: {
+    email: { title: "Email", placeholder: "[email to be provided]" },
+    office: {
+      title: "Office",
+      placeholder: "[office address to be provided]",
     },
-  ],
+    hours: { title: "Working hours", placeholder: "[hours to be provided]" },
+    social: {
+      title: "Social",
+      brands: "Instagram · LinkedIn",
+      linksPlaceholder: "[links to be provided]",
+    },
+  },
 };
 
 const id: ContactCopy = {
@@ -69,16 +77,19 @@ const id: ContactCopy = {
     numberLabel: "WhatsApp:",
     numberPlaceholder: "[nomor akan diberikan]",
   },
-  channels: [
-    { key: "email", title: "Email", body: "[email akan diberikan]" },
-    { key: "office", title: "Kantor", body: "[alamat kantor akan diberikan]" },
-    { key: "hours", title: "Jam kerja", body: "[jam kerja akan diberikan]" },
-    {
-      key: "social",
-      title: "Media sosial",
-      body: "Instagram · LinkedIn [tautan akan diberikan]",
+  channels: {
+    email: { title: "Email", placeholder: "[email akan diberikan]" },
+    office: {
+      title: "Kantor",
+      placeholder: "[alamat kantor akan diberikan]",
     },
-  ],
+    hours: { title: "Jam kerja", placeholder: "[jam kerja akan diberikan]" },
+    social: {
+      title: "Media sosial",
+      brands: "Instagram · LinkedIn",
+      linksPlaceholder: "[tautan akan diberikan]",
+    },
+  },
 };
 
 export function getContactCopy(lang: Lang): ContactCopy {

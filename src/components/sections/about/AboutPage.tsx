@@ -79,7 +79,6 @@ export function AboutPage() {
               <article className="px-vmc px-rv">
                 <span className="px-vml">{copy.visionMission.visionLabel}</span>
                 <p className="px-vmt">{copy.visionMission.visionText}</p>
-                <span className="px-draft">{copy.visionMission.draftNote}</span>
               </article>
               <article className="px-vmc px-rv">
                 <span className="px-vml">{copy.visionMission.missionLabel}</span>
@@ -88,7 +87,6 @@ export function AboutPage() {
                     <li key={point}>{point}</li>
                   ))}
                 </ul>
-                <span className="px-draft">{copy.visionMission.draftNote}</span>
               </article>
             </div>
           </div>
@@ -135,9 +133,11 @@ export function AboutPage() {
                     {copy.whatWeDo.digdeep.cta}
                   </span>
                 )}
-                <span className="px-note">
-                  <span className="ph">{copy.whatWeDo.digdeep.urlNote}</span>
-                </span>
+                {!academyUrl ? (
+                  <span className="px-note">
+                    <span className="ph">{copy.whatWeDo.digdeep.urlNote}</span>
+                  </span>
+                ) : null}
               </article>
 
               <article className="px-area px-rv">
@@ -194,18 +194,28 @@ export function AboutPage() {
               <div className="fcta-b">
                 {whatsappUrl ? (
                   <a
-                    className="btn btn-p btn-lg cta"
+                    className="btn btn-p btn-lg cta px-swap"
                     href={whatsappUrl}
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <WhatsAppIcon />
-                    {copy.cta.button}
+                    <span className="px-sw1" aria-hidden="true">
+                      <WhatsAppIcon />
+                    </span>
+                    <span className="px-sw-label">{copy.cta.button}</span>
+                    <span className="px-sw2" aria-hidden="true">
+                      <SwapChevron />
+                    </span>
                   </a>
                 ) : (
-                  <Link className="btn btn-p btn-lg cta" href="/contact">
-                    <WhatsAppIcon />
-                    {copy.cta.button}
+                  <Link className="btn btn-p btn-lg cta px-swap" href="/contact">
+                    <span className="px-sw1" aria-hidden="true">
+                      <WhatsAppIcon />
+                    </span>
+                    <span className="px-sw-label">{copy.cta.button}</span>
+                    <span className="px-sw2" aria-hidden="true">
+                      <SwapChevron />
+                    </span>
                   </Link>
                 )}
               </div>
@@ -234,6 +244,23 @@ function Chevron() {
       strokeLinejoin="round"
     >
       <path d="M9 6l6 6-6 6" />
+    </svg>
+  );
+}
+
+function SwapChevron() {
+  return (
+    <svg
+      width="20"
+      height="20"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2.4"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M10 6l6 6-6 6" />
     </svg>
   );
 }

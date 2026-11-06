@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Manrope, Roboto } from "next/font/google";
 
 import { Footer } from "@/components/layout/Footer";
@@ -29,6 +29,12 @@ export const metadata: Metadata = {
     template: `%s · ${siteSettings.siteName}`,
   },
   description: siteSettings.defaultDescription,
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({

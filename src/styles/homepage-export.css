@@ -125,11 +125,12 @@ body{margin:0;background:#fff}
 .mp .btn{width:100%;margin-top:20px}
 
 /* hero */
-.hero{position:relative;overflow-x:clip;background:var(--color-bg-secondary);margin-top:calc(var(--navh)*-1);padding:calc(var(--navh) + 200px) 0 0;min-height:920px}
+.hero{position:relative;overflow-x:clip;background:var(--color-bg-secondary);margin-top:calc(var(--navh)*-1);padding:0;min-height:100svh}
 .hero-glow{position:absolute;left:0;right:0;top:0;bottom:-100px;pointer-events:none;user-select:none;-webkit-user-drag:none;z-index:0;background:url("/images/hero/hero-glow.png") center bottom/cover no-repeat;-webkit-mask-image:linear-gradient(180deg,#000 0,#000 calc(100% - 160px),rgba(0,0,0,.82) calc(100% - 120px),rgba(0,0,0,.5) calc(100% - 80px),rgba(0,0,0,.2) calc(100% - 40px),transparent 100%);mask-image:linear-gradient(180deg,#000 0,#000 calc(100% - 160px),rgba(0,0,0,.82) calc(100% - 120px),rgba(0,0,0,.5) calc(100% - 80px),rgba(0,0,0,.2) calc(100% - 40px),transparent 100%)}
 .hero + .sec{border-top:0}
 .hero + .sec .wrap{position:relative;z-index:1}
-.hero-in{display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;z-index:2}
+/* Pin headline block to the vertical middle of the first viewport (accounts for hero's -navh pull-up) */
+.hero-in{display:flex;flex-direction:column;align-items:center;text-align:center;position:absolute;left:0;right:0;top:calc(50svh + var(--navh));transform:translateY(-50%);z-index:2;width:100%;box-sizing:border-box}
 .hero-in .disp{margin-top:0}
 .hero-in .lead{margin-top:28px;max-width:800px}
 .lead strong{font-weight:600;color:var(--color-text-primary)}
@@ -259,6 +260,7 @@ body{margin:0;background:#fff}
   .nav-cta{min-height:40px;padding:0 16px;font-size:14px;line-height:20px;gap:8px;--shift:13px}
   .logo{height:30px}
   .hero{padding-top:calc(var(--navh) + 140px);min-height:820px}
+  .hero-in{position:relative;top:auto;transform:none}
   .split{grid-template-columns:minmax(0,1fr)}
   .gr{--c:var(--t,1)}
   .steps{--sc:2;row-gap:40px}
@@ -298,6 +300,7 @@ body{margin:0;background:#fff}
   .burger{display:inline-flex}
   .nav-in{gap:12px}.nav-r{gap:8px}
   .hero{padding-top:calc(var(--navh) + clamp(56px,10svh,96px));padding-bottom:104px;min-height:0}
+  .hero-in{position:relative;top:auto;transform:none}
   /* mobile hero: 3-line headline (Beyond Technology / Empowering / orb Intelligence), compact lead, full-width stacked buttons, gradient fills the rest of the screen */
   .hero-in .disp{font-size:clamp(36px,10.8cqw,44px);line-height:1.2}
   .hero-in .disp .h-brk{display:block}
@@ -686,7 +689,7 @@ body{margin:0;background:#fff}
 @container pg (max-width:639px){.hw>.hero-glow{bottom:0}}
 
 /* Why choose Tenos v3: big one-line title, reasons alternate left/right around a CSS-3D robot */
-.wy-hd{display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px}
+.wy-hd{display:flex;flex-direction:column;align-items:center;text-align:center;gap:12px}
 .pg .wy-h2{font:700 clamp(36px,5.2cqw,76px)/1.08 var(--font-display);letter-spacing:-.035em;color:#0B0D12;text-wrap:balance}
 .wy-g2{display:grid;grid-template-columns:minmax(0,1fr) 340px minmax(0,1fr);column-gap:40px;row-gap:56px;margin-top:72px;align-items:start}
 .wy-mid{grid-column:2;grid-row:1 / span 4;align-self:stretch}
@@ -779,8 +782,10 @@ body{margin:0;background:#fff}
 /* Why choose Tenos — dark mode. The shared hero gradient keeps flowing in at the top, then deepens to near-black */
 .hw>.wy::before{background:linear-gradient(180deg,rgba(11,13,18,0) 0,rgba(11,13,18,.55) 160px,rgba(11,13,18,.9) 380px,#0B0D12 620px,#0B0D12 100%)}
 .hw .wy{color:#fff}
-.hw .wy .eyebrow{color:#5ED8E2}
-.pg .hw .wy-h2{color:#fff}
+.hw .wy .eyebrow{font:600 14px/19px var(--font-text);letter-spacing:.12em;text-transform:uppercase;color:#06C0D0;text-shadow:0 0 18px rgba(6,192,208,.55),0 0 36px rgba(6,192,208,.28)}
+.pg .hw .wy-h2{font:700 48px/1.08 var(--font-display);letter-spacing:-.035em;color:#fff;text-wrap:balance}
+@container pg (max-width:1023px){.pg .hw .wy-h2{font-size:clamp(36px,5.2cqw,48px)}}
+@container pg (max-width:639px){.pg .hw .wy-h2{font-size:clamp(28px,8cqw,36px)}.hw .wy .eyebrow{font-size:12px;line-height:16px}}
 .hw .wy-g2 .wy-c,.hw .wy-c{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.12);box-shadow:0 20px 48px rgba(0,0,0,.35);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
 .hw .wy-c::after{background:radial-gradient(closest-side,rgba(6,192,208,.22),rgba(6,192,208,0))}
 .pg .hw .wy-t{color:#fff}
@@ -1164,7 +1169,7 @@ body{margin:0;background:#fff}
    reason in the middle is sharp and bright while the others recede (dimmer, smaller, blurred). Live preview only. */
 @supports (animation-timeline:view()){
   @media (max-height:1400px) and (prefers-reduced-motion:no-preference){
-    .hw .wy-scrolly .wy-list{display:flex;flex-direction:column;justify-content:center;gap:120px;height:100%;position:relative;z-index:1;
+    .hw .wy-scrolly .wy-list{display:flex;flex-direction:column;justify-content:center;gap:120px;height:100%;max-height:100%;min-height:0;position:relative;z-index:1;
       -webkit-mask-image:linear-gradient(180deg,transparent 0,#000 18%,#000 82%,transparent 100%);mask-image:linear-gradient(180deg,transparent 0,#000 18%,#000 82%,transparent 100%)}
     .hw .wy-scrolly .wy-list::before{top:0;bottom:0}
     .hw .wy-scrolly .wy-list .wy-c.wy-lft{grid-area:auto;min-height:200px;transform-origin:left center;will-change:transform,opacity,filter}
@@ -1175,10 +1180,11 @@ body{margin:0;background:#fff}
     .hw .wy-scrolly .wy-list .wy-c2.wy-lft::after{animation-name:wyfd2!important;animation-range:contain 0% contain 100%!important}
     .hw .wy-scrolly .wy-list .wy-c3.wy-lft::after{animation-name:wyfd3!important;animation-range:contain 0% contain 100%!important}
     /* purple light lives on the pinned stage so it is visible from the first reason onward */
-    .wy-scrolly .wy-pin{isolation:isolate}
+    .wy-scrolly .wy-pin{isolation:isolate;overflow:clip;align-items:stretch}
     .wy-scrolly .wy-pin::after{content:"";position:absolute;left:50%;bottom:-140px;width:min(1100px,120%);height:360px;transform:translateX(-50%);border-radius:50%;z-index:-1;pointer-events:none;
       background:radial-gradient(closest-side,rgba(122,90,248,.30),rgba(122,90,248,.10) 55%,rgba(122,90,248,0));filter:blur(8px);animation:wyglow 8s ease-in-out infinite}
-    .wy-scrolly .wy-mid{position:relative;z-index:1}
+    /* Keep prism centered in the sticky viewport — don't let the tall reason list stretch this column */
+    .wy-scrolly .wy-mid{position:relative;z-index:1;align-self:center;height:100%;max-height:100%;min-height:0}
     .wy:has(.wy-scrolly) .wy-bub::before{display:none}
   }
 }

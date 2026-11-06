@@ -2,7 +2,8 @@
 // @ts-nocheck
 /**
  * Tenos Intelligence Prism engine — ported from file-html/Intelligence Prism.html.
- * Scroll-scrubbed only (setProgress). Transparent WebGL clear; no rectangular backdrop plane.
+ * Scroll-scrubbed only (setProgress). Transparent WebGL clear; refraction backdrop feeds
+ * the transmission pass only (colorWrite gated) so the canvas stays clear over the page.
  */
 import * as T from "three";
 
@@ -106,11 +107,19 @@ export function createTenosPrism(canvas: HTMLCanvasElement, opts: Record<string,
   const scene=new T.Scene();scene.background=null;scene.environment=env;
   const cam=new T.PerspectiveCamera(14,1,0.1,120);
   const root=new T.Group();scene.add(root);
-  // refraction backdrop plane omitted for transparent production canvas
+  // refraction backdrop: dark ground with soft cyan/violet glows — transmission feed only
+  const bc=document.createElement('canvas');bc.width=bc.height=512;const bx=bc.getContext('2d');
+  bx.fillStyle='#0B0D12';bx.fillRect(0,0,512,512);
+  const glow=(x,y,r,c)=>{const g=bx.createRadialGradient(x,y,0,x,y,r);g.addColorStop(0,c);g.addColorStop(1,'rgba(0,0,0,0)');bx.fillStyle=g;bx.fillRect(0,0,512,512)};
+  glow(120,140,230,'rgba(6,192,208,0.42)');glow(390,380,230,'rgba(124,58,237,0.50)');glow(250,260,140,'rgba(217,70,239,0.26)');glow(440,90,110,'rgba(255,217,138,0.26)');glow(260,90,150,'rgba(255,255,255,0.14)');
+  bx.save();bx.translate(256,256);bx.rotate(-0.5);for(let i=-6;i<=6;i++){bx.fillStyle='rgba(255,255,255,'+(0.025+0.02*((i*7)%3+3)/3)+')';bx.fillRect(-400,i*34,800,3+((i*5)%4))}bx.restore();
+  const bt=new T.CanvasTexture(bc);bt.colorSpace=T.SRGBColorSpace;bt.wrapS=bt.wrapT=T.ClampToEdgeWrapping;
+  const back=new T.Mesh(new T.PlaneGeometry(18,18),new T.MeshBasicMaterial({map:bt,toneMapped:false}));back.position.z=-4.2;scene.add(back);
+  // Drawn only while Three is sampling transmission (render target set); main pass stays transparent.
+  back.material.colorWrite=false;back.material.depthWrite=false;
+  back.onBeforeRender=function(r){const inT=!!r.getRenderTarget();back.material.colorWrite=inT;back.material.depthWrite=inT};
 
   const light={cy:new T.PointLight(0x06C0D0,0,30,1.6),ye:new T.PointLight(0xA06BFF,0,30,1.6),au:new T.PointLight(0xFFD98A,0,30,1.8)};scene.add(light.cy,light.ye,light.au);
-  // soft floor glow omitted — kept scene transparent over site background
-
 
   const hx=(h)=>new T.Color(h);
   const PAL={cy2:hx(0x2DD4BF),cy:hx(0x22D3EE),lav:hx(0xC4B5FD),vio:hx(0x8B5CF6),mag:hx(0xE879F9),gold:hx(0xFFB52E),yel:hx(0xFFD966),amb:hx(0xFF9F1C),cham:hx(0xFFC857),lil:hx(0xD9CCFF),bl:hx(0x60A5FA),lil2:hx(0xD8B4FE)};
@@ -249,6 +258,7 @@ export function createTenosPrism(canvas: HTMLCanvasElement, opts: Record<string,
     matShards.forEach(m=>setShardMat(m,ct));
     matFacets.forEach((m,i)=>setMat(m,i+3,ct,p,true));
     edgeMat.opacity=0.09*sm(0.1,0.5,p)*(1-sm(0.55,0.75,p));
+    back.position.x=-0.9+1.8*p;back.position.y=0.5-1.0*p;back.rotation.z=0.5*p;
     // object turns with scroll only; settles frontal at the end
     const calm=1-sm(0.5,0.90,p);
     root.rotation.y=0.75*Math.sin(p*5.4)*calm+0.25*calm;
@@ -274,12 +284,12 @@ export function createTenosPrism(canvas: HTMLCanvasElement, opts: Record<string,
   function dispose(){R.dispose();try{R.forceContextLoss()}catch(x){}scene.traverse(o=>{if(o.geometry)o.geometry.dispose()});}
   return {setProgress,resize,dispose,renderer:R,camera:cam,root,logo,shards,RATIO,
     debugFlat(){ // flat white pass for numeric geometry validation
-      const bg=scene.background,env0=scene.environment;scene.environment=null;scene.background=new T.Color(0);
+      back.visible=false;const bg=scene.background,env0=scene.environment;scene.environment=null;scene.background=new T.Color(0);
       const g0=U.uGlow.value,f0=U.uFres.value;U.uGlow.value=0;U.uFres.value=0;const mats=matShards.concat(matFacets);const saved=mats.map(m=>[m.transmission,m.color.clone(),m.emissive.clone(),m.emissiveIntensity,m.transparent,m.opacity]);
       mats.forEach(m=>{m.transmission=0;m.color.set(0);m.emissive.set(0xffffff);m.emissiveIntensity=1;m.transparent=false;m.opacity=1});
       const li=[light.cy.intensity,light.ye.intensity];light.cy.intensity=light.ye.intensity=0;edgeMat.opacity=0;
       R.toneMapping=T.NoToneMapping;R.render(scene,cam);
-      return ()=>{U.uGlow.value=g0;U.uFres.value=f0;scene.background=bg;scene.environment=env0;mats.forEach((m,i)=>{const s=saved[i];m.transmission=s[0];m.color.copy(s[1]);m.emissive.copy(s[2]);m.emissiveIntensity=s[3];m.transparent=s[4];m.opacity=s[5]});light.cy.intensity=li[0];light.ye.intensity=li[1];R.toneMapping=T.ACESFilmicToneMapping;setProgress(last)};
+      return ()=>{U.uGlow.value=g0;U.uFres.value=f0;back.visible=true;scene.background=bg;scene.environment=env0;mats.forEach((m,i)=>{const s=saved[i];m.transmission=s[0];m.color.copy(s[1]);m.emissive.copy(s[2]);m.emissiveIntensity=s[3];m.transparent=s[4];m.opacity=s[5]});light.cy.intensity=li[0];light.ye.intensity=li[1];R.toneMapping=T.ACESFilmicToneMapping;setProgress(last)};
     }};
 }
 

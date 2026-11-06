@@ -1,7 +1,9 @@
 /* ============================================================
    Tenos — About Us + Contact page styles (page-specific).
    Everything here is scoped to .pgx / .px-* so the approved
-   Homepage (Main.dc.html + tenos.css) is never affected.
+   Homepage is never affected.
+   Synced to file-html About/Contact design references (Desktop
+   1440 / Tablet 834 / Mobile 402) via shared container queries.
    Tokens follow design-tokens/color-modes (light):
    brand #08BAC5 · secondary #FFCC00 · accent #7655E8
    ============================================================ */
@@ -35,16 +37,16 @@
 }
 
 /* ---------- page hero (soft brand/accent/secondary glow, no image) ---------- */
-/* Second padding term = distance from viewport top to hero copy; keep it above --navh for clearance */
-.px-hero{position:relative;overflow:hidden;isolation:isolate;margin-top:calc(var(--navh)*-1);padding:calc(var(--navh) + 184px) 0 0;background:var(--px-soft)}
-.pgx .px-hero + .sec{padding-top:112px}
-.px-hero-sm{padding-bottom:0}
+/* margin -navh pulls the glow under the fixed chrome; first navh clears it, +120px is the visible gap below the navbar */
+.px-hero{position:relative;overflow:hidden;isolation:isolate;margin-top:calc(var(--navh)*-1);padding:calc(var(--navh) * 2 + 120px) 0 48px;background:var(--px-soft)}
+.pgx .px-hero + .sec{padding-top:64px}
+.px-hero-sm{padding-bottom:48px}
 .px-hero-in{position:relative;z-index:1;display:flex;flex-direction:column;align-items:flex-start}
 .px-glow{position:absolute;inset:0;z-index:0;pointer-events:none}
-.px-glow i{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55}
-.px-glow .pg1{width:620px;height:620px;right:-120px;top:-180px;background:var(--px-brand);animation:pxa 16s ease-in-out infinite alternate}
-.px-glow .pg2{width:460px;height:460px;right:280px;top:120px;background:var(--px-acc);opacity:.35;animation:pxb 18s ease-in-out infinite alternate}
-.px-glow .pg3{width:300px;height:300px;right:60px;bottom:-120px;background:var(--px-sec);opacity:.28;animation:pxc 14s ease-in-out infinite alternate}
+.px-glow i{position:absolute;border-radius:50%;filter:blur(110px);opacity:.32}
+.px-glow .pg1{width:460px;height:460px;right:auto;left:calc(50% - 230px);top:-210px;background:var(--px-brand);animation:pxa 16s ease-in-out infinite alternate}
+.px-glow .pg2{width:340px;height:340px;right:auto;left:calc(50% - 480px);top:-160px;background:var(--px-acc);opacity:.2;animation:pxb 18s ease-in-out infinite alternate}
+.px-glow .pg3{width:260px;height:260px;right:auto;bottom:auto;left:calc(50% + 170px);top:-140px;background:var(--px-sec);opacity:.18;animation:pxc 14s ease-in-out infinite alternate}
 .px-hero::after{content:"";position:absolute;inset:auto 0 0 0;height:160px;z-index:0;background:linear-gradient(180deg,rgba(250,250,250,0),#fff)}
 @keyframes pxa{to{transform:translate(-80px,60px) scale(1.08)}}
 @keyframes pxb{to{transform:translate(90px,-40px) scale(.92)}}
@@ -66,7 +68,6 @@
 .px-vmlist{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
 .px-vmlist li{position:relative;padding-left:22px;font:500 18px/28px var(--font-text);color:#E4E6EA}
 .px-vmlist li::before{content:"";position:absolute;left:0;top:10px;width:8px;height:8px;border-radius:50%;background:var(--px-brand)}
-.pgx .px-draft{margin-top:auto;padding-top:8px;font:500 13px/18px var(--font-text);color:#9AA0A9}
 
 /* what we do — two equal areas */
 .px-two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;margin-top:48px}
@@ -115,7 +116,25 @@
 .px-fb{display:flex;align-items:center;gap:16px;flex-wrap:wrap;margin-top:4px}
 .pgx .px-fnote{font:400 14px/20px var(--font-text);color:var(--px-t3)}
 
-/* ---------- scroll reveal (same principle as the Homepage; live preview only) ---------- */
+/* ---------- CTA button: chat icon exits left, label slides, chevron enters ---------- */
+/* React uses .px-sw-label (HTML refs used .en/.id bilingual spans) */
+.pgx .px-swap{position:relative;overflow:hidden}
+.pgx .px-swap>.px-sw1{display:inline-flex;flex:none;width:20px;height:20px;transform:none;opacity:1;transition:transform 560ms cubic-bezier(.22,1,.36,1),opacity 360ms cubic-bezier(.22,1,.36,1)}
+.pgx .px-swap>.px-sw-label{transform:none;transition:transform 560ms cubic-bezier(.22,1,.36,1)}
+.pgx .px-swap>.px-sw2{position:absolute;top:50%;right:var(--sw-r,36px);width:20px;height:20px;margin-top:-10px;opacity:0;transform:translateX(64px);transition:transform 560ms cubic-bezier(.22,1,.36,1),opacity 360ms cubic-bezier(.22,1,.36,1);will-change:transform,opacity}
+.pgx .px-sw1 svg,.pgx .px-sw2 svg{display:block}
+.pgx .px-wabtn.px-swap{--sw-r:32px}
+@media (hover:hover){
+  .pgx .px-swap:hover>.px-sw1{transform:translateX(-64px);opacity:0}
+  .pgx .px-swap:hover>.px-sw-label{transform:translateX(-30px)}
+  .pgx .px-swap:hover>.px-sw2{transform:translateX(0);opacity:1}
+}
+.pgx .px-swap:focus-visible>.px-sw1{transform:translateX(-64px);opacity:0}
+.pgx .px-swap:focus-visible>.px-sw-label{transform:translateX(-30px)}
+.pgx .px-swap:focus-visible>.px-sw2{transform:translateX(0);opacity:1}
+@media (prefers-reduced-motion:reduce){.pgx .px-swap>.px-sw1,.pgx .px-swap>.px-sw2,.pgx .px-swap>.px-sw-label{transition-duration:1ms}}
+
+/* ---------- scroll reveal ---------- */
 @supports (animation-timeline:view()){
   @media (max-height:1400px) and (prefers-reduced-motion:no-preference){
     .px-rv{animation:pxrv linear both;animation-timeline:view();animation-range:entry 0% cover 30%}
@@ -124,10 +143,10 @@
 @keyframes pxrv{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:none}}
 @media (prefers-reduced-motion:reduce){.px-glow i{animation:none}}
 
-/* ---------- tablet ---------- */
+/* ---------- tablet (reference: 834) ---------- */
 @container pg (max-width:1023px){
-  .px-hero{padding:calc(var(--navh) + 148px) 0 0}
-  .pgx .px-hero + .sec{padding-top:104px}
+  .px-hero,.px-hero-sm{padding:calc(var(--navh) * 2 + 120px) 0 48px}
+  .pgx .px-hero + .sec{padding-top:56px}
   .px-split{grid-template-columns:minmax(0,1fr);gap:24px}
   .px-ct{grid-template-columns:minmax(0,1fr);gap:16px}
   .px-split>.px-stack{padding-top:0}
@@ -135,22 +154,32 @@
   .px-vm,.px-two,.px-steps{margin-top:40px}
   .px-vm,.px-two{grid-template-columns:minmax(0,1fr)}
   .px-steps{grid-template-columns:minmax(0,1fr)}
-  .px-glow .pg1{width:460px;height:460px}
+  .px-glow .pg1{width:380px;height:380px;left:calc(50% - 190px);top:-190px}.px-glow .pg2{width:300px;height:300px;left:calc(50% - 370px);top:-150px}.px-glow .pg3{width:220px;height:220px;left:calc(50% + 100px);top:-120px}
 }
-/* ---------- mobile ---------- */
+/* ---------- mobile (reference: 402) ---------- */
 @container pg (max-width:639px){
-  .px-hero{padding:calc(var(--navh) + 132px) 0 0}
-  .pgx .px-hero + .sec{padding-top:72px}
+  .px-hero,.px-hero-sm{padding:calc(var(--navh) * 2 + 120px) 0 40px}
+  .pgx .px-hero + .sec{padding-top:32px}
   .px-vm,.px-two,.px-steps{margin-top:32px;gap:16px}
   .pgx .px-btns{margin-top:32px}
   .px-chc{padding:20px}
-  .pgx .px-h1{font-size:38px;line-height:1.12}
+  .pgx .px-h1{font-size:clamp(32px,9.6cqw,40px);line-height:1.12}
   .pgx .px-lead{font-size:17px;line-height:28px}
   .pgx .px-btns{align-self:stretch;flex-direction:column;gap:12px}
   .pgx .px-btns .btn,.px-area .btn,.px-wabtn,.px-fb .btn{width:100%;min-height:56px}
   .px-vmc,.px-area,.px-wa,.px-form{padding:24px}
   .pgx .px-vmt{font-size:21px;line-height:30px}
+  .pgx p,.pgx li{text-wrap:pretty}
+  .pgx .btn.px-p.px-wabtn,.pgx .px-area .btn.px-p,.pgx .px-area .btn.px-g{padding:0 20px}
+  .pgx .ph{border-radius:12px}
+  .pgx .px-h2{text-wrap:balance}
   .px-row{grid-template-columns:minmax(0,1fr)}
   .px-step{padding:24px}
-  .px-glow .pg1{width:340px;height:340px;right:-160px}.px-glow .pg2{width:260px;height:260px;right:80px}
+  .px-glow .pg1{width:300px;height:300px;left:calc(50% - 150px);top:-170px}.px-glow .pg2{width:220px;height:220px;left:calc(50% - 220px);top:-110px}.px-glow .pg3{width:180px;height:180px;left:calc(50% + 20px);top:-100px}
+}
+
+/* very narrow phones (320-359px): keep long button labels on one line */
+@container pg (max-width:359px){
+  .pgx .btn.px-p.px-wabtn{padding:0 14px;font-size:15px;gap:8px}
+  .pgx .btn.px-p,.pgx .btn.px-g{font-size:15px}
 }

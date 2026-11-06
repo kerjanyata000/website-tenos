@@ -227,7 +227,7 @@ export function HeroWhySection() {
         </div>
         <div className="wrap">
           <Reveal className="wy-hd">
-            <span className="eyebrow" style={{ fontSize: 14, color: "#ffffff" }}>
+            <span className="eyebrow">
               <LocaleText en={en.why.eyebrow} id={id.why.eyebrow} />
             </span>
             <h2 className="wy-h2" id="wy-h">

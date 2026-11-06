@@ -156,12 +156,6 @@
   }
 }
 
-@media (max-width: 639px) {
-  .site-nav-glass {
-    padding: 20px var(--gutter) 12px;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   .site-nav-glass {
     -webkit-backdrop-filter: none;
@@ -340,8 +334,11 @@
   margin: -1px;
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
   white-space: nowrap;
   border-width: 0;
+  top: 0;
+  left: 0;
 }
 
 .focus\:not-sr-only:focus {

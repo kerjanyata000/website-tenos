@@ -23,7 +23,6 @@ export type AboutCopy = {
     visionText: string;
     missionLabel: string;
     missionPoints: [string, string, string];
-    draftNote: string;
   };
   whatWeDo: {
     eyebrow: string;
@@ -81,14 +80,14 @@ const en: AboutCopy = {
     eyebrow: "Vision & mission",
     heading: "What guides our work.",
     visionLabel: "Vision",
-    visionText: "[Draft vision statement — to be confirmed by Tenos]",
+    visionText:
+      "To close the gap between AI’s potential and how people and organizations actually use it.",
     missionLabel: "Mission",
     missionPoints: [
-      "[Draft mission point 1 — to be confirmed]",
-      "[Draft mission point 2 — to be confirmed]",
-      "[Draft mission point 3 — to be confirmed]",
+      "Build AI literacy that helps people understand and apply AI in their daily work.",
+      "Teach through hands-on programs grounded in real cases, not theory alone.",
+      "Build intelligent systems that transform how organizations operate: practical, human, and built to last.",
     ],
-    draftNote: "Draft placeholder · not an official statement",
   },
   whatWeDo: {
     eyebrow: "What we do",
@@ -174,14 +173,14 @@ const id: AboutCopy = {
     eyebrow: "Visi & misi",
     heading: "What guides our work.",
     visionLabel: "Visi",
-    visionText: "[Draf pernyataan visi — akan dikonfirmasi oleh Tenos]",
+    visionText:
+      "Menutup kesenjangan antara potensi AI dan cara orang serta organisasi benar-benar menggunakannya.",
     missionLabel: "Misi",
     missionPoints: [
-      "[Draf poin misi 1 — akan dikonfirmasi]",
-      "[Draf poin misi 2 — akan dikonfirmasi]",
-      "[Draf poin misi 3 — akan dikonfirmasi]",
+      "Membangun literasi AI agar orang memahami dan menerapkan AI dalam pekerjaan sehari-hari.",
+      "Mengajar melalui program langsung praktik berbasis kasus nyata, bukan sekadar teori.",
+      "Membangun sistem cerdas yang mengubah cara organisasi beroperasi: praktis, manusiawi, dan dibuat untuk bertahan lama.",
     ],
-    draftNote: "Placeholder draf · bukan pernyataan resmi",
   },
   whatWeDo: {
     eyebrow: "Yang kami lakukan",

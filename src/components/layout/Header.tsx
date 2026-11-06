@@ -68,7 +68,11 @@ export function Header() {
   ];
 
   useEffect(() => {
-    if (!menuOpen) return;
+    const root = document.documentElement;
+    if (!menuOpen) {
+      root.classList.remove("nav-menu-open");
+      return;
+    }
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -77,15 +81,25 @@ export function Header() {
       }
     };
 
+    root.classList.add("nav-menu-open");
     document.addEventListener("keydown", onKeyDown);
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
 
     return () => {
       document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = previousOverflow;
+      root.classList.remove("nav-menu-open");
     };
   }, [menuOpen]);
+
+  /* Burger only applies ≤819px — close the panel if the viewport grows past that. */
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 819px)");
+    const onChange = () => {
+      if (!mq.matches) setMenuOpen(false);
+    };
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   return (
     <div className="site-nav">
@@ -95,7 +109,7 @@ export function Header() {
             <Link
               href="/"
               aria-label={`${siteSettings.siteName} home`}
-              className="site-nav-logo shrink-0 px-5"
+              className="site-nav-logo min-w-0 shrink px-5"
               onClick={() => setMenuOpen(false)}
             >
               <Image
@@ -104,7 +118,7 @@ export function Header() {
                 width={138}
                 height={32}
                 priority
-                className="site-nav-logo-img h-8 w-auto"
+                className="site-nav-logo-img h-8 w-auto max-w-full"
               />
             </Link>
 
@@ -189,19 +203,8 @@ export function Header() {
                   );
                 })}
               </nav>
-              <div
-                className={cn(
-                  "mt-5 flex items-center gap-3",
-                  toggleEnabled ? "justify-between" : "justify-stretch",
-                )}
-              >
-                {toggleEnabled ? (
-                  <LanguageToggle
-                    lang={lang}
-                    onChange={setLang}
-                    label={copy.nav.language}
-                  />
-                ) : null}
+              {/* Language stays in the bar next to the burger; panel only adds Contact CTA. */}
+              <div className="mt-5 flex items-center justify-stretch">
                 <ExportCta
                   href="/contact"
                   className="nav-cta flex-1"
