@@ -4,26 +4,9 @@ import { useState } from "react";
 
 import { Placeholder } from "@/components/ui/Placeholder";
 import { Reveal } from "@/components/ui/Reveal";
+import { IconWhatsApp } from "@/components/ui/icons";
 import { useHomepageCopy } from "@/hooks/useHomepageCopy";
 import { getWhatsAppUrl } from "@/lib/links";
-
-function WhatsAppIcon() {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.7-5.2A8.5 8.5 0 1 1 21 12z" />
-    </svg>
-  );
-}
 
 export function ConsultingSection() {
   const { consulting } = useHomepageCopy();
@@ -86,13 +69,13 @@ export function ConsultingSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  <WhatsAppIcon />
+                  <IconWhatsApp size={20} />
                   <span>{consulting.ctaLabel}</span>
                   <span className="sr-only">{consulting.opensNewTab}</span>
                 </a>
               ) : (
                 <a className="btn btn-p btn-lg ai-cta" href="#contact">
-                  <WhatsAppIcon />
+                  <IconWhatsApp size={20} />
                   <span>{consulting.ctaLabel}</span>
                 </a>
               )}

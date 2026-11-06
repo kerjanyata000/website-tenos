@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
+import { IconChat } from "@/components/ui/icons";
 import { getAboutCopy } from "@/content/about";
 import { useLanguage } from "@/lib/language";
 import { getAcademyUrl, getWhatsAppUrl } from "@/lib/links";
@@ -200,7 +201,7 @@ export function AboutPage() {
                     rel="noopener noreferrer"
                   >
                     <span className="px-sw1" aria-hidden="true">
-                      <WhatsAppIcon />
+                      <IconChat size={20} />
                     </span>
                     <span className="px-sw-label">{copy.cta.button}</span>
                     <span className="px-sw2" aria-hidden="true">
@@ -210,7 +211,7 @@ export function AboutPage() {
                 ) : (
                   <Link className="btn btn-p btn-lg cta px-swap" href="/contact">
                     <span className="px-sw1" aria-hidden="true">
-                      <WhatsAppIcon />
+                      <IconChat size={20} />
                     </span>
                     <span className="px-sw-label">{copy.cta.button}</span>
                     <span className="px-sw2" aria-hidden="true">
@@ -284,20 +285,3 @@ function LayersIcon() {
   );
 }
 
-function WhatsAppIcon() {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.7-5.2A8.5 8.5 0 1 1 21 12z" />
-    </svg>
-  );
-}

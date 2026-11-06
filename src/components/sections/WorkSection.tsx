@@ -8,6 +8,7 @@ import {
   RetailThumb,
 } from "@/components/sections/work/ProjectThumbs";
 import { Reveal } from "@/components/ui/Reveal";
+import { IconWhatsApp } from "@/components/ui/icons";
 import { useHomepageCopy } from "@/hooks/useHomepageCopy";
 
 const thumbs = {
@@ -17,24 +18,6 @@ const thumbs = {
 } as const;
 
 type FilterId = "all" | "retail" | "finance" | "education";
-
-function WhatsAppIcon() {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.7-5.2A8.5 8.5 0 1 1 21 12z" />
-    </svg>
-  );
-}
 
 export function WorkSection() {
   const { work } = useHomepageCopy();
@@ -131,7 +114,7 @@ export function WorkSection() {
         >
           <p className="pw-cta-t">{work.ctaPrompt}</p>
           <a className="btn btn-p btn-lg pw-btn" href={work.ctaHref}>
-            <WhatsAppIcon />
+            <IconWhatsApp size={20} />
             <span>{work.ctaLabel}</span>
           </a>
         </Reveal>

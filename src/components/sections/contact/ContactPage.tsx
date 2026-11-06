@@ -1,5 +1,6 @@
 "use client";
 
+import { IconChat, IconInstagram, IconWhatsApp } from "@/components/ui/icons";
 import { getContactCopy } from "@/content/contact";
 import { siteSettings } from "@/content/site";
 import { useLanguage } from "@/lib/language";
@@ -35,7 +36,7 @@ export function ContactPage() {
             <article className="px-wa px-rv">
               <div className="px-dglow" aria-hidden="true" />
               <span className="px-wai" aria-hidden="true">
-                <WhatsAppIcon />
+                <IconWhatsApp size={24} />
               </span>
               <span className="px-eb px-eb-l">{copy.whatsapp.eyebrow}</span>
               <h2 className="px-h2 px-on-dark">{copy.whatsapp.heading}</h2>
@@ -48,7 +49,7 @@ export function ContactPage() {
                   rel="noopener noreferrer"
                 >
                   <span className="px-sw1" aria-hidden="true">
-                    <WhatsAppIconSmall />
+                    <IconChat size={20} />
                   </span>
                   <span className="px-sw-label">{copy.whatsapp.cta}</span>
                   <span className="px-sw2" aria-hidden="true">
@@ -61,7 +62,7 @@ export function ContactPage() {
                   aria-disabled="true"
                 >
                   <span className="px-sw1" aria-hidden="true">
-                    <WhatsAppIconSmall />
+                    <IconChat size={20} />
                   </span>
                   <span className="px-sw-label">{copy.whatsapp.cta}</span>
                   <span className="px-sw2" aria-hidden="true">
@@ -144,43 +145,6 @@ export function ContactPage() {
   );
 }
 
-function WhatsAppIcon() {
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.7-5.2A8.5 8.5 0 1 1 21 12z" />
-      <path d="M9.2 8.6c-.3.6-.2 1.5.5 2.6s1.8 2.1 2.9 2.6c.8.4 1.5.2 1.9-.3l.3-.6-1.6-.9-.7.6c-.6-.3-1.3-.9-1.7-1.6l.6-.7-.8-1.7z" />
-    </svg>
-  );
-}
-
-function WhatsAppIconSmall() {
-  return (
-    <svg
-      width="20"
-      height="20"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M21 12a8.5 8.5 0 0 1-12.6 7.4L3 21l1.7-5.2A8.5 8.5 0 1 1 21 12z" />
-    </svg>
-  );
-}
-
 function SwapChevron() {
   return (
     <svg
@@ -254,19 +218,5 @@ function ChannelIcon({
       </svg>
     );
   }
-  return (
-    <svg
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-    >
-      <rect x="3" y="3" width="18" height="18" rx="5" />
-      <circle cx="12" cy="12" r="4" />
-    </svg>
-  );
+  return <IconInstagram size={24} />;
 }
