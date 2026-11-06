@@ -30,14 +30,14 @@ export function AboutPage() {
             </h1>
             <p className="px-lead">{copy.hero.lead}</p>
             <div className="px-btns">
-              <a className="btn btn-p btn-lg cta px-p" href="#ab-what">
-                {copy.hero.primaryCta}
+              <a className="btn btn-p btn-lg cta px-navcta" href="#ab-what">
+                <span>{copy.hero.primaryCta}</span>
                 <span className="ar" aria-hidden="true">
                   <Chevron />
                 </span>
               </a>
-              <Link className="btn btn-g btn-lg cta px-g" href="/contact">
-                {copy.hero.secondaryCta}
+              <Link className="btn btn-p btn-lg cta px-navcta" href="/contact">
+                <span>{copy.hero.secondaryCta}</span>
                 <span className="ar" aria-hidden="true">
                   <Chevron />
                 </span>
