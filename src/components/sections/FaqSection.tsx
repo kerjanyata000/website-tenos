@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState } from "react";
+import { useEffect, useId, useRef, useState } from "react";
 
 import { useHomepageCopy } from "@/hooks/useHomepageCopy";
 
@@ -8,6 +8,42 @@ export function FaqSection() {
   const { faq } = useHomepageCopy();
   const baseId = useId();
   const [openIndex, setOpenIndex] = useState(1);
+  const videoRef = useRef<HTMLVideoElement>(null);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    const tryPlay = () => {
+      video.muted = true;
+      void video.play().catch(() => {});
+    };
+
+    tryPlay();
+    const onVis = () => {
+      if (document.visibilityState === "visible") tryPlay();
+    };
+    document.addEventListener("visibilitychange", onVis);
+
+    const io =
+      typeof IntersectionObserver !== "undefined"
+        ? new IntersectionObserver(
+            (entries) => {
+              for (const entry of entries) {
+                if (entry.isIntersecting) tryPlay();
+                else video.pause();
+              }
+            },
+            { threshold: 0.2 },
+          )
+        : null;
+    io?.observe(video);
+
+    return () => {
+      document.removeEventListener("visibilitychange", onVis);
+      io?.disconnect();
+    };
+  }, []);
 
   if (!faq.items.length) return null;
 
@@ -37,16 +73,21 @@ export function FaqSection() {
             <p className="lead fq-lead">{faq.lead}</p>
             <div className="fq-art" aria-hidden="true">
               <video
+                ref={videoRef}
                 className="fq-vid"
-                src="/videos/ellipse-animation.mp4"
+                src="/videos/mascot-animation.mp4"
                 autoPlay
                 muted
                 loop
                 playsInline
                 preload="auto"
                 disablePictureInPicture
+                disableRemotePlayback
                 controls={false}
+                controlsList="nodownload nofullscreen noremoteplayback"
                 tabIndex={-1}
+                draggable={false}
+                onContextMenu={(e) => e.preventDefault()}
               />
             </div>
           </div>

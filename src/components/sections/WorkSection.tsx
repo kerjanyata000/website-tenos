@@ -9,6 +9,7 @@ import {
 } from "@/components/sections/work/ProjectThumbs";
 import { Reveal } from "@/components/ui/Reveal";
 import { IconWhatsApp } from "@/components/ui/icons";
+import { getWhatsAppUrl } from "@/lib/links";
 import { useHomepageCopy } from "@/hooks/useHomepageCopy";
 
 const thumbs = {
@@ -22,6 +23,7 @@ type FilterId = "all" | "retail" | "finance" | "education";
 export function WorkSection() {
   const { work } = useHomepageCopy();
   const [filter, setFilter] = useState<FilterId>("all");
+  const whatsappUrl = getWhatsAppUrl();
 
   return (
     <section
@@ -113,7 +115,13 @@ export function WorkSection() {
           delay={100}
         >
           <p className="pw-cta-t">{work.ctaPrompt}</p>
-          <a className="btn btn-p btn-lg pw-btn" href={work.ctaHref}>
+          <a
+            className="btn btn-p btn-lg pw-btn"
+            href={whatsappUrl ?? work.ctaHref}
+            {...(whatsappUrl
+              ? { target: "_blank", rel: "noopener noreferrer" }
+              : {})}
+          >
             <IconWhatsApp size={20} />
             <span>{work.ctaLabel}</span>
           </a>

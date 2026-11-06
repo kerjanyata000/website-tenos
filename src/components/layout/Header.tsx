@@ -11,6 +11,7 @@ import { useHomepageCopy } from "@/hooks/useHomepageCopy";
 import { siteSettings } from "@/content/site";
 import { useLanguage, type Lang } from "@/lib/language";
 import { cn } from "@/lib/cn";
+import { getWhatsAppUrl } from "@/lib/links";
 
 function isCurrent(match: "home" | "about" | "contact" | undefined, pathname: string) {
   if (match === "home") return pathname === "/";
@@ -60,6 +61,10 @@ export function Header() {
   const menuId = useId();
   const burgerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const whatsappUrl = getWhatsAppUrl();
+  const contactCtaHref = whatsappUrl ?? "/contact";
+  const contactCtaExternal = Boolean(whatsappUrl);
 
   const primaryNav = [
     { label: copy.nav.home, href: "/", match: "home" as const },
@@ -157,7 +162,13 @@ export function Header() {
               ) : null}
 
               <div className="site-nav-desktop-cta">
-                <ExportCta href="/contact" className="nav-cta">
+                <ExportCta
+                  href={contactCtaHref}
+                  className="nav-cta"
+                  {...(contactCtaExternal
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                >
                   {copy.nav.contactCta}
                 </ExportCta>
               </div>
@@ -206,9 +217,12 @@ export function Header() {
               {/* Language stays in the bar next to the burger; panel only adds Contact CTA. */}
               <div className="mt-5 flex items-center justify-stretch">
                 <ExportCta
-                  href="/contact"
+                  href={contactCtaHref}
                   className="nav-cta flex-1"
                   onClick={() => setMenuOpen(false)}
+                  {...(contactCtaExternal
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
                 >
                   {copy.nav.contactCta}
                 </ExportCta>

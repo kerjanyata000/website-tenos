@@ -43,7 +43,7 @@ const en: ContactCopy = {
     body: "Share your business needs or questions about AI consulting and development. We will reply and suggest a next step.",
     cta: "Talk to Our Team",
     numberLabel: "WhatsApp:",
-    numberPlaceholder: "[number to be provided]",
+    numberPlaceholder: "+62 811-1010-331",
   },
   channels: {
     email: { title: "Email", placeholder: "[email to be provided]" },
@@ -75,7 +75,7 @@ const id: ContactCopy = {
     body: "Sampaikan kebutuhan bisnis atau pertanyaan Anda seputar konsultasi dan pengembangan AI. Kami akan membalas dan menyarankan langkah berikutnya.",
     cta: "Bicara dengan Tim Kami",
     numberLabel: "WhatsApp:",
-    numberPlaceholder: "[nomor akan diberikan]",
+    numberPlaceholder: "+62 811-1010-331",
   },
   channels: {
     email: { title: "Email", placeholder: "[email akan diberikan]" },

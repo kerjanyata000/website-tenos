@@ -220,10 +220,6 @@ export function AboutPage() {
                   </Link>
                 )}
               </div>
-              <p className="px-onote">
-                {copy.cta.whatsappNote}
-                <span className="ph">{copy.cta.whatsappPlaceholder}</span>
-              </p>
             </div>
           </div>
         </section>

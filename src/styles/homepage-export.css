@@ -1249,10 +1249,10 @@ body{margin:0;background:#fff}
 .pg{--tn-brand:#08BAC5;--tn-secondary:#FFCC00;--tn-accent:#7655E8}
 .fq-g{grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:32px;align-items:stretch}
 .fq-l{gap:20px}
-.fq-art{position:relative;margin-top:16px;width:100%;max-width:none;flex:1;min-height:420px;border-radius:24px;overflow:hidden;
-  background:radial-gradient(70% 60% at 50% 50%,#fff 0,#FAFAFB 60%,#F3F4F6 100%);box-shadow:inset 0 0 0 1px #EEF0F2;display:flex;align-items:center;justify-content:center;pointer-events:none;user-select:none}
+.fq-art{position:relative;margin-top:16px;width:100%;max-width:none;aspect-ratio:1;border-radius:24px;overflow:hidden;
+  background:radial-gradient(70% 60% at 50% 50%,#fff 0,#FAFAFB 60%,#F3F4F6 100%);box-shadow:inset 0 0 0 1px #EEF0F2;pointer-events:none;user-select:none;-webkit-user-select:none}
 .fq-art::before{content:none}
-.fq-vid{display:block;width:100%;height:100%;min-height:420px;object-fit:cover;pointer-events:none;-webkit-user-drag:none}
+.fq-vid{display:block;position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 62%;pointer-events:none;-webkit-user-drag:none;user-select:none}
 .fq-orb{position:relative;width:min(62%,300px);aspect-ratio:1;border-radius:50%;overflow:hidden;isolation:isolate;
   background:radial-gradient(circle at 50% 50%,rgba(255,255,255,.35),rgba(255,255,255,.05) 70%),#E9E4FF;
   box-shadow:inset 0 0 0 1px rgba(255,255,255,.7),inset 0 -.6em 1.6em rgba(118,85,232,.25),inset .4em .4em 1.2em rgba(255,255,255,.7),0 30px 60px rgba(118,85,232,.18);
@@ -1283,8 +1283,8 @@ body{margin:0;background:#fff}
 .fq-r[data-fq="1"] .fq1 .fq-ai p,.fq-r[data-fq="2"] .fq2 .fq-ai p,.fq-r[data-fq="3"] .fq3 .fq-ai p,.fq-r[data-fq="4"] .fq4 .fq-ai p,.fq-r[data-fq="5"] .fq5 .fq-ai p{padding-top:20px}
 .fq-r[data-fq="1"] .fq1,.fq-r[data-fq="2"] .fq2,.fq-r[data-fq="3"] .fq3,.fq-r[data-fq="4"] .fq4,.fq-r[data-fq="5"] .fq5{box-shadow:0 0 0 1px #C2F0F3,0 12px 32px rgba(8,186,197,.10)}
 @media (hover:hover){.fq-s:hover .fq-tg{transform:scale(1.08)}.fq-r[data-fq="1"] .fq1 .fq-s:hover .fq-tg,.fq-r[data-fq="2"] .fq2 .fq-s:hover .fq-tg,.fq-r[data-fq="3"] .fq3 .fq-s:hover .fq-tg,.fq-r[data-fq="4"] .fq4 .fq-s:hover .fq-tg,.fq-r[data-fq="5"] .fq5 .fq-s:hover .fq-tg{transform:rotate(135deg) scale(1.08)}}
-@container pg (max-width:1023px){.fq-g{grid-template-columns:minmax(0,1fr);gap:32px}.fq-art{display:flex;min-height:320px}.fq-vid{min-height:320px}}
-@container pg (max-width:639px){.fq-art{min-height:260px}.fq-vid{min-height:260px}.fq-s{padding:18px 16px 18px 20px}.fq-tg{width:34px;height:34px}.fq-ai p{padding:0 20px 20px}}
+@container pg (max-width:1023px){.fq-g{grid-template-columns:minmax(0,1fr);gap:32px}.fq-art{aspect-ratio:1;max-width:min(100%,420px)}}
+@container pg (max-width:639px){.fq-art{aspect-ratio:1;max-width:min(100%,320px)}.fq-s{padding:18px 16px 18px 20px}.fq-tg{width:34px;height:34px}.fq-ai p{padding:0 20px 20px}}
 /* Keep decorative orb CSS inert once video replaces it */
 .fq-art::before{content:none!important;animation:none!important}
 .fo-b{filter:blur(42px);opacity:.85}

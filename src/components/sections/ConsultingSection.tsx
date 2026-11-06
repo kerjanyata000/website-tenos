@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 
-import { Placeholder } from "@/components/ui/Placeholder";
 import { Reveal } from "@/components/ui/Reveal";
 import { IconWhatsApp } from "@/components/ui/icons";
 import { useHomepageCopy } from "@/hooks/useHomepageCopy";
@@ -79,12 +78,6 @@ export function ConsultingSection() {
                   <span>{consulting.ctaLabel}</span>
                 </a>
               )}
-              <span className="sm">
-                {consulting.whatsappHint}{" "}
-                {whatsappUrl ? null : (
-                  <Placeholder>{consulting.numberPending}</Placeholder>
-                )}
-              </span>
             </div>
           </Reveal>
 

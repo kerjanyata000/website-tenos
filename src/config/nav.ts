@@ -17,6 +17,7 @@ export const primaryNav: NavItem[] = [
 
 export const headerCta = {
   label: "Contact Us",
+  /** Prefer WhatsApp via getWhatsAppUrl() in Header; this is the fallback route. */
   href: "/contact",
 } as const;
 

@@ -70,10 +70,6 @@ export function ContactPage() {
                   </span>
                 </span>
               )}
-              <span className="px-onote">
-                {copy.whatsapp.numberLabel}{" "}
-                <span className="ph">{copy.whatsapp.numberPlaceholder}</span>
-              </span>
             </article>
 
             <div className="px-ch">

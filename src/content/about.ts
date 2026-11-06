@@ -144,8 +144,8 @@ const en: AboutCopy = {
     heading: "Let's Build Something Intelligent Together.",
     lead: "Tell us about your goals and challenges. Our team will help you see where AI can fit.",
     button: "Contact Tenos",
-    whatsappNote: "Opens WhatsApp once the official number is confirmed ",
-    whatsappPlaceholder: "[WhatsApp number to be provided]",
+    whatsappNote: "Opens WhatsApp · ",
+    whatsappPlaceholder: "+62 811-1010-331",
   },
 };
 
@@ -238,8 +238,8 @@ const id: AboutCopy = {
     heading: "Let's Build Something Intelligent Together.",
     lead: "Ceritakan tujuan dan tantangan Anda. Tim kami akan membantu melihat di mana AI bisa berperan.",
     button: "Hubungi Tenos",
-    whatsappNote: "Membuka WhatsApp setelah nomor resmi dikonfirmasi ",
-    whatsappPlaceholder: "[Nomor WhatsApp akan diberikan]",
+    whatsappNote: "Membuka WhatsApp · ",
+    whatsappPlaceholder: "+62 811-1010-331",
   },
 };
 
