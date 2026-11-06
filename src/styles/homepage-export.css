@@ -652,7 +652,7 @@ body{margin:0;background:#fff}
 @media (prefers-reduced-motion:reduce){.pw,.pw-th svg,.pw-l svg,.pf-c{transition:none}}
 
 /* Why choose Tenos (under the hero): sticky heading left, 4 reasons right that reveal one by one while scrolling */
-.wy{position:relative;z-index:1}
+.wy{position:relative;z-index:1;overflow:visible}
 .wy-g{display:grid;grid-template-columns:minmax(0,5fr) minmax(0,7fr);gap:64px;align-items:start}
 .wy-l{position:sticky;top:140px;display:flex;flex-direction:column;align-items:flex-start;gap:20px}
 .wy-r{display:flex;flex-direction:column;gap:28px}
@@ -680,7 +680,7 @@ body{margin:0;background:#fff}
 @keyframes wyicon{from{transform:scale(.4) rotate(-30deg);opacity:0}to{transform:none;opacity:1}}
 
 /* Hero + Why choose Tenos share ONE background gradient so the two sections read as one surface */
-.hw{position:relative;overflow-x:clip;background:var(--color-bg-secondary)}
+.hw{position:relative;overflow-x:clip;overflow-y:visible;background:var(--color-bg-secondary)}
 .hw>section{position:relative;z-index:1}
 .hw .hero{background:transparent}
 .hw>.hero-glow{position:absolute;inset:0;bottom:0;z-index:0;background:url("/images/hero/hw-gradient.png") center top/100% 100% no-repeat;
@@ -857,10 +857,13 @@ body{margin:0;background:#fff}
   100%{transform:translate(var(--dx),calc(var(--r) * -1));opacity:0}
 }
 
-/* Why circles v3: smaller dots + a soft violet light rising from the bottom edge where they come from */
+/* Why circles v3: smaller dots + soft violet floor light.
+   No filter:blur — blur + overflow:hidden on .wy-bub paints a hard horizontal cut.
+   Peak sits mid-glow; radial + mask both reach transparent before the box bottom. */
 .wy-bub i{width:calc(var(--s) * .38);height:calc(var(--s) * .38);bottom:-24px;box-shadow:0 0 calc(var(--s) * .45) rgba(122,90,248,.6)}
-.wy-bub::before{content:"";position:absolute;left:50%;bottom:-180px;width:min(1100px,120%);height:360px;transform:translateX(-50%);border-radius:50%;
-  background:radial-gradient(closest-side,rgba(122,90,248,.28),rgba(122,90,248,.10) 55%,rgba(122,90,248,0));filter:blur(8px);animation:wyglow 8s ease-in-out infinite}
+.wy-bub::before{content:"";position:absolute;left:50%;bottom:0;width:min(1200px,140%);height:min(480px,54%);transform:translateX(-50%);border-radius:0;filter:none;animation:wyglow 8s ease-in-out infinite;
+  background:radial-gradient(ellipse 78% 90% at 50% 100%,rgba(122,90,248,.48),rgba(122,90,248,.22) 32%,rgba(122,90,248,.08) 58%,rgba(122,90,248,0) 78%);
+  -webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 16%,#000 100%);mask-image:linear-gradient(180deg,transparent 0%,#000 16%,#000 100%)}
 @keyframes wyglow{0%,100%{opacity:.75}50%{opacity:1}}
 @media (prefers-reduced-motion:reduce){.wy-bub::before{animation:none}}
 /* robot: no shadow underneath */
@@ -1160,7 +1163,7 @@ body{margin:0;background:#fff}
 }
 @supports (animation-timeline:view()){@media (max-height:1400px) and (prefers-reduced-motion:no-preference){@container pg (max-width:639px){.wy-pin{align-content:center}.hw .wy-scrolly .wy-list{height:auto;gap:0}}}}
 
-/* Keep the hero gradient where it was: size it to the original hero+Why height instead of the (now 3-screen) wrapper */
+/* Keep hero gradient framed to original hero+Why height (not the 300vh scrolly wrapper) */
 .hw>.hero-glow{bottom:auto;height:2200px;background-size:100% 100%}
 @container pg (max-width:1023px){.hw>.hero-glow{height:2350px}}
 @container pg (max-width:639px){.hw>.hero-glow{height:2470px}}
@@ -1179,13 +1182,18 @@ body{margin:0;background:#fff}
     .hw .wy-scrolly .wy-list .wy-c1.wy-lft::after{animation-name:wyfd1!important;animation-range:contain 0% contain 100%!important}
     .hw .wy-scrolly .wy-list .wy-c2.wy-lft::after{animation-name:wyfd2!important;animation-range:contain 0% contain 100%!important}
     .hw .wy-scrolly .wy-list .wy-c3.wy-lft::after{animation-name:wyfd3!important;animation-range:contain 0% contain 100%!important}
-    /* purple light lives on the pinned stage so it is visible from the first reason onward */
-    .wy-scrolly .wy-pin{isolation:isolate;overflow:clip;align-items:stretch}
-    .wy-scrolly .wy-pin::after{content:"";position:absolute;left:50%;bottom:-140px;width:min(1100px,120%);height:360px;transform:translateX(-50%);border-radius:50%;z-index:-1;pointer-events:none;
-      background:radial-gradient(closest-side,rgba(122,90,248,.30),rgba(122,90,248,.10) 55%,rgba(122,90,248,0));filter:blur(8px);animation:wyglow 8s ease-in-out infinite}
+    /* Pin: never paint floor glow here — sticky pin bottom sits ~110px above Why end (.wy padding),
+       so a bottom-anchored radial reads as a hard purple cut mid-section. */
+    .wy-scrolly .wy-pin{isolation:isolate;align-items:stretch;overflow:visible}
+    .wy-scrolly .wy-pin::after{content:none;display:none}
     /* Keep prism centered in the sticky viewport — don't let the tall reason list stretch this column */
     .wy-scrolly .wy-mid{position:relative;z-index:1;align-self:center;height:100%;max-height:100%;min-height:0}
-    .wy:has(.wy-scrolly) .wy-bub::before{display:none}
+    /* Floor glow lives on .wy-bub (full Why incl. padding). Keep overflow hidden for particles;
+       glow itself has no blur and fades to transparent before the clip edge. */
+    /* Floor glow sits on the Why bottom edge — peak at 50% 100% so violet touches the section floor */
+    .wy:has(.wy-scrolly) .wy-bub{overflow:hidden}
+    .wy:has(.wy-scrolly) .wy-bub::before{display:block;bottom:0;height:min(560px,60%)}
+    .hw>.wy::after{content:none;display:none}
   }
 }
 /* list shift: card centre step = 200 (min height) + 120 gap = 320px */
