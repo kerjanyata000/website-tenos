@@ -11,9 +11,12 @@ import { useHomepageCopy } from "@/hooks/useHomepageCopy";
 import { siteSettings } from "@/content/site";
 import { useLanguage, type Lang } from "@/lib/language";
 import { cn } from "@/lib/cn";
+import { getWhatsAppUrl } from "@/lib/links";
 
 function isCurrent(match: "home" | "about" | "contact" | undefined, pathname: string) {
   if (match === "home") return pathname === "/";
+  if (match === "about") return pathname.startsWith("/about");
+  if (match === "contact") return pathname.startsWith("/contact");
   return false;
 }
 
@@ -59,14 +62,22 @@ export function Header() {
   const burgerRef = useRef<HTMLButtonElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
+  const whatsappUrl = getWhatsAppUrl();
+  const contactCtaHref = whatsappUrl ?? "/contact";
+  const contactCtaExternal = Boolean(whatsappUrl);
+
   const primaryNav = [
     { label: copy.nav.home, href: "/", match: "home" as const },
-    { label: copy.nav.about, href: "/#about", match: "about" as const },
-    { label: copy.nav.contact, href: "/#contact", match: "contact" as const },
+    { label: copy.nav.about, href: "/about", match: "about" as const },
+    { label: copy.nav.contact, href: "/contact", match: "contact" as const },
   ];
 
   useEffect(() => {
-    if (!menuOpen) return;
+    const root = document.documentElement;
+    if (!menuOpen) {
+      root.classList.remove("nav-menu-open");
+      return;
+    }
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
@@ -75,25 +86,35 @@ export function Header() {
       }
     };
 
+    root.classList.add("nav-menu-open");
     document.addEventListener("keydown", onKeyDown);
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
 
     return () => {
       document.removeEventListener("keydown", onKeyDown);
-      document.body.style.overflow = previousOverflow;
+      root.classList.remove("nav-menu-open");
     };
   }, [menuOpen]);
+
+  /* Burger only applies ≤819px — close the panel if the viewport grows past that. */
+  useEffect(() => {
+    const mq = window.matchMedia("(max-width: 819px)");
+    const onChange = () => {
+      if (!mq.matches) setMenuOpen(false);
+    };
+    onChange();
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, []);
 
   return (
     <div className="site-nav">
       <div className="site-nav-glass">
-        <header className="site-nav-bar relative h-[72px] max-[639px]:h-[60px]">
-          <div className="flex h-full items-center justify-between gap-6 p-3 max-[819px]:gap-3 max-[819px]:pr-2 max-[819px]:pl-5 max-[639px]:pr-2 max-[639px]:pl-5">
+        <header className="site-nav-bar relative h-[72px]">
+          <div className="site-nav-inner flex h-full min-w-0 items-center justify-between gap-6 p-3">
             <Link
               href="/"
               aria-label={`${siteSettings.siteName} home`}
-              className="shrink-0 px-5 max-[819px]:px-0"
+              className="site-nav-logo min-w-0 shrink px-5"
               onClick={() => setMenuOpen(false)}
             >
               <Image
@@ -102,12 +123,12 @@ export function Header() {
                 width={138}
                 height={32}
                 priority
-                className="h-8 w-auto max-[1023px]:h-[30px] max-[639px]:h-7"
+                className="site-nav-logo-img h-8 w-auto max-w-full"
               />
             </Link>
 
             <nav
-              className="flex gap-8 max-[1023px]:gap-4 max-[819px]:hidden"
+              className="site-nav-desktop-links flex min-w-0 gap-8"
               aria-label="Primary"
             >
               {primaryNav.map((item) => {
@@ -130,18 +151,24 @@ export function Header() {
               })}
             </nav>
 
-            <div className="flex shrink-0 items-center gap-6 max-[819px]:gap-2">
+            <div className="site-nav-actions flex shrink-0 items-center gap-6">
               {toggleEnabled ? (
                 <LanguageToggle
                   lang={lang}
                   onChange={setLang}
                   label={copy.nav.language}
-                  className="max-[819px]:hidden"
+                  className="site-nav-desktop-lang"
                 />
               ) : null}
 
-              <div className="max-[819px]:hidden">
-                <ExportCta href="/#contact" className="nav-cta">
+              <div className="site-nav-desktop-cta">
+                <ExportCta
+                  href={contactCtaHref}
+                  className="nav-cta"
+                  {...(contactCtaExternal
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
+                >
                   {copy.nav.contactCta}
                 </ExportCta>
               </div>
@@ -149,7 +176,7 @@ export function Header() {
               <button
                 ref={burgerRef}
                 type="button"
-                className="hidden h-11 w-11 items-center justify-center rounded-[var(--radius-button)] border border-border-secondary bg-white text-[var(--tenos-gray-950)] max-[819px]:inline-flex"
+                className="site-nav-burger h-11 w-11 items-center justify-center rounded-[var(--radius-button)] border border-border-secondary bg-white text-[var(--tenos-gray-950)]"
                 aria-expanded={menuOpen}
                 aria-controls={menuId}
                 aria-label={menuOpen ? copy.nav.closeMenu : copy.nav.openMenu}
@@ -164,7 +191,7 @@ export function Header() {
             <div
               ref={menuRef}
               id={menuId}
-              className="absolute top-[calc(100%+8px)] right-0 left-0 z-40 rounded-[var(--radius-card)] border border-border-secondary bg-white px-5 pt-2 pb-5 shadow-[0_12px_32px_rgba(10,13,18,0.12)] max-[819px]:block min-[820px]:hidden"
+              className="site-nav-panel absolute top-[calc(100%+8px)] right-0 left-0 z-40 rounded-[var(--radius-card)] border border-border-secondary bg-white px-5 pt-2 pb-5 shadow-[0_12px_32px_rgba(10,13,18,0.12)]"
             >
               <nav aria-label="Mobile primary" className="flex flex-col">
                 {primaryNav.map((item, index) => {
@@ -187,23 +214,15 @@ export function Header() {
                   );
                 })}
               </nav>
-              <div
-                className={cn(
-                  "mt-5 flex items-center gap-3",
-                  toggleEnabled ? "justify-between" : "justify-stretch",
-                )}
-              >
-                {toggleEnabled ? (
-                  <LanguageToggle
-                    lang={lang}
-                    onChange={setLang}
-                    label={copy.nav.language}
-                  />
-                ) : null}
+              {/* Language stays in the bar next to the burger; panel only adds Contact CTA. */}
+              <div className="mt-5 flex items-center justify-stretch">
                 <ExportCta
-                  href="/#contact"
+                  href={contactCtaHref}
                   className="nav-cta flex-1"
                   onClick={() => setMenuOpen(false)}
+                  {...(contactCtaExternal
+                    ? { target: "_blank", rel: "noopener noreferrer" }
+                    : {})}
                 >
                   {copy.nav.contactCta}
                 </ExportCta>

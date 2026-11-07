@@ -1,11 +1,11 @@
 "use client";
 
-import { useId, type CSSProperties } from "react";
+import { type CSSProperties } from "react";
 
 import { ExportCta } from "@/components/sections/ExportCta";
+import { LocaleText } from "@/components/ui/LocaleText";
 import { Reveal } from "@/components/ui/Reveal";
-import { heroDisplay } from "@/content/homepage";
-import { useHomepageCopy } from "@/hooks/useHomepageCopy";
+import { heroDisplay, homepageCopy } from "@/content/homepage";
 
 import { WhyLogoReveal } from "./why/WhyLogoReveal";
 
@@ -26,163 +26,84 @@ const bubbleVars = [
   { s: "10px", x: "75%", t: "18s", d: "-16s", r: "673px", dx: "3px" },
 ] as const;
 
-function WhyIcon({
-  type,
-}: {
-  type: "spark" | "target" | "arrow" | "learn";
-}) {
-  if (type === "spark") {
-    return (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" aria-hidden>
-        <path d="M10 3l2.2 6.3 6.3 2.2-6.3 2.2L10 20l-2.2-6.3L1.5 11.5l6.3-2.2z" />
-      </svg>
-    );
-  }
-  if (type === "target") {
-    return (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
-        <circle cx="12" cy="12" r="8" />
-        <circle cx="12" cy="12" r="3" />
-      </svg>
-    );
-  }
-  if (type === "arrow") {
-    return (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
-        <path d="M4 12h16M14 6l6 6-6 6" />
-      </svg>
-    );
-  }
-  return (
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden>
+const { en, id } = homepageCopy;
+
+const whyIcons = {
+  learn: (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
       <path d="M3 9l9-5 9 5-9 5-9-5z" />
       <path d="M7 11.5V16c0 1.2 2.2 3 5 3s5-1.8 5-3v-4.5" />
     </svg>
-  );
-}
+  ),
+  bolt: (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <path d="M13 3L5 13.5h6L10 21l8-10.5h-6L13 3z" />
+    </svg>
+  ),
+  systems: (
+    <svg
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      aria-hidden
+    >
+      <rect x="4" y="4" width="7" height="7" rx="2" />
+      <rect x="13" y="13" width="7" height="7" rx="2" />
+      <path d="M11 7.5h3.5a2 2 0 0 1 2 2V13" />
+    </svg>
+  ),
+} as const;
 
-/** Yellow TENOS ring mark — same inline footprint as the former AI Orb. */
+const reasonIcons = [whyIcons.learn, whyIcons.bolt, whyIcons.systems] as const;
+
+/** Claude Design export `.tring` — yellow glass ring with hover hole-close. */
 function TenosRing() {
-  const rawId = useId();
-  const uid = `tenos-ring-${rawId.replace(/:/g, "")}`;
-  /* Outer r=42, inner r=26 — evenodd cutout keeps the center truly transparent */
-  const annulus =
-    "M50 8a42 42 0 1 0 .01 0zm0 16a26 26 0 1 1-.01 0z";
-
   return (
-    <span className="aitile" aria-hidden="true">
-      {/* Fixed footprint; visual layer scales on hover so headline text does not shift */}
-      <span className="tenos-viz">
-        <span className="tenos-ambient" />
-        <svg className="tenos-ring-svg" viewBox="0 0 100 100" fill="none">
-          <defs>
-            <linearGradient id={`${uid}-body`} x1="24%" y1="10%" x2="76%" y2="90%">
-              <stop offset="0%" stopColor="#FFFBE6" />
-              <stop offset="35%" stopColor="#FFE566" />
-              <stop offset="70%" stopColor="#FFD600" />
-              <stop offset="100%" stopColor="#FFD84A" />
-            </linearGradient>
-            <radialGradient id={`${uid}-shine`} cx="32%" cy="28%" r="58%">
-              <stop offset="0%" stopColor="#FFFFFF" stopOpacity="0.75" />
-              <stop offset="40%" stopColor="#FFFFFF" stopOpacity="0.2" />
-              <stop offset="100%" stopColor="#FFFFFF" stopOpacity="0" />
-            </radialGradient>
-            <radialGradient id={`${uid}-glass`} cx="70%" cy="60%" r="46%">
-              <stop offset="0%" stopColor="#5ED8E2" stopOpacity="0.14" />
-              <stop offset="60%" stopColor="#08BAC5" stopOpacity="0.04" />
-              <stop offset="100%" stopColor="#08BAC5" stopOpacity="0" />
-            </radialGradient>
-            <mask
-              id={`${uid}-mask`}
-              maskUnits="userSpaceOnUse"
-              x="0"
-              y="0"
-              width="100"
-              height="100"
-            >
-              <rect width="100" height="100" fill="#000" />
-              <circle cx="50" cy="50" r="42" fill="#fff" />
-              <circle cx="50" cy="50" r="26" fill="#000" />
-            </mask>
-            <filter
-              id={`${uid}-float`}
-              x="-40%"
-              y="-40%"
-              width="180%"
-              height="180%"
-              colorInterpolationFilters="sRGB"
-            >
-              <feDropShadow
-                dx="0"
-                dy="2.5"
-                stdDeviation="2"
-                floodColor="#0B0D12"
-                floodOpacity="0.1"
-              />
-              <feDropShadow
-                dx="0"
-                dy="0"
-                stdDeviation="2.8"
-                floodColor="#FFD600"
-                floodOpacity="0.28"
-              />
-            </filter>
-          </defs>
-
-          <g className="tenos-ring-stack" filter={`url(#${uid}-float)`}>
-            <path
-              className="tenos-ring-body"
-              d={annulus}
-              fill={`url(#${uid}-body)`}
-              fillRule="evenodd"
-            />
-            <path
-              className="tenos-ring-shine"
-              d={annulus}
-              fill={`url(#${uid}-shine)`}
-              fillRule="evenodd"
-            />
-            <path
-              className="tenos-ring-glass"
-              d={annulus}
-              fill={`url(#${uid}-glass)`}
-              fillRule="evenodd"
-            />
-            <g className="tenos-blobs" mask={`url(#${uid}-mask)`}>
-              <circle className="tenos-blob tenos-blob-a" cx="34" cy="30" r="14" fill="#FFFFFF" fillOpacity="0.4" />
-              <circle className="tenos-blob tenos-blob-b" cx="70" cy="64" r="11" fill="#5ED8E2" fillOpacity="0.12" />
-              <circle className="tenos-blob tenos-blob-c" cx="58" cy="24" r="10" fill="#FFE566" fillOpacity="0.45" />
-            </g>
-          </g>
-
-          <g className="tenos-orbit-g tenos-orbit-a">
-            <ellipse
-              className="tenos-orbit"
-              cx="50"
-              cy="50"
-              rx="46"
-              ry="31"
-              stroke="#FFD600"
-              strokeWidth="1.1"
-            />
-            <circle className="tenos-particle" cx="96" cy="50" r="2" fill="#FFD600" />
-            <circle className="tenos-particle tenos-particle-dim" cx="18" cy="68" r="1.35" fill="#FFE566" />
-          </g>
-          <g className="tenos-orbit-g tenos-orbit-b">
-            <ellipse
-              className="tenos-orbit"
-              cx="50"
-              cy="50"
-              rx="42"
-              ry="42"
-              stroke="#FFD600"
-              strokeWidth="0.9"
-              transform="rotate(48 50 50)"
-            />
-            <circle className="tenos-particle" cx="50" cy="8" r="1.6" fill="#FFE566" />
-          </g>
-        </svg>
-      </span>
+    <span className="tring" role="img" aria-label="Tenos">
+      <i className="tr-glass" />
+      <svg className="tr-ic" viewBox="0 0 200 200" fill="none" aria-hidden="true">
+        <g className="tr-star">
+          <path
+            d="M98 71C101 90 111 100 130 103C111 106 101 116 98 135C95 116 85 106 66 103C85 100 95 90 98 71Z"
+            fill="#fff"
+            transform="rotate(10 98 103)"
+          />
+        </g>
+        <g className="tr-plus">
+          <path
+            d="M129 75v14M122 82h14"
+            stroke="#fff"
+            strokeWidth="3.4"
+            strokeLinecap="round"
+          />
+        </g>
+        <circle className="tr-dot" cx="70" cy="121" r="6.5" fill="#fff" />
+      </svg>
     </span>
   );
 }
@@ -228,9 +149,17 @@ function SimulatedClientLogos({ note }: { note: string }) {
   );
 }
 
-export function HeroWhySection() {
-  const { hero, why } = useHomepageCopy();
+function LeadStrong({ parts }: { parts: [string, string, string] }) {
+  return (
+    <>
+      {parts[0]}
+      <strong>{parts[1]}</strong>
+      {parts[2]}
+    </>
+  );
+}
 
+export function HeroWhySection() {
   return (
     <div className="hw">
       <div className="hero-glow" aria-hidden="true" />
@@ -251,25 +180,29 @@ export function HeroWhySection() {
             </span>
           </h1>
           <div className="lead">
-            <p>
-              {hero.lead[0]}
-              <strong>{hero.lead[1]}</strong>
-              {hero.lead[2]}
+            <p className="en">
+              <LeadStrong parts={en.hero.lead} />
             </p>
+            <span className="id">
+              <LeadStrong parts={id.hero.lead} />
+            </span>
           </div>
           <div className="btns">
-            <ExportCta href={hero.primaryCta.href} variant="primary">
-              {hero.primaryCta.label}
+            <ExportCta href={en.hero.primaryCta.href} variant="primary">
+              <LocaleText en={en.hero.primaryCta.label} id={id.hero.primaryCta.label} />
             </ExportCta>
-            <ExportCta href={hero.secondaryCta.href} variant="ghost">
-              {hero.secondaryCta.label}
+            <ExportCta href={en.hero.secondaryCta.href} variant="ghost">
+              <LocaleText
+                en={en.hero.secondaryCta.label}
+                id={id.hero.secondaryCta.label}
+              />
             </ExportCta>
           </div>
         </div>
         <div className="clients">
           <div className="wrap">
-            <p className="sr-only">{hero.clientsNote}</p>
-            <SimulatedClientLogos note={hero.clientsNote} />
+            <p className="sr-only">{en.hero.clientsNote}</p>
+            <SimulatedClientLogos note={en.hero.clientsNote} />
           </div>
         </div>
       </section>
@@ -294,33 +227,45 @@ export function HeroWhySection() {
         </div>
         <div className="wrap">
           <Reveal className="wy-hd">
-            <span className="eyebrow" style={{ fontSize: 14, color: "#ffffff" }}>
-              {why.eyebrow}
+            <span className="eyebrow">
+              <LocaleText en={en.why.eyebrow} id={id.why.eyebrow} />
             </span>
             <h2 className="wy-h2" id="wy-h">
-              {why.heading}
+              <LocaleText en={en.why.heading} id={id.why.heading} />
             </h2>
           </Reveal>
-          <div className="wy-g2">
-            <div className="wy-mid">
-              <WhyLogoReveal />
+          <div className="wy-g2 wy-3 wy-scrolly">
+            <div className="wy-pin">
+              <div className="wy-list">
+                {en.why.reasons.map((reason, index) => {
+                  const idReason = id.why.reasons[index];
+                  return (
+                    <article
+                      key={reason.n}
+                      className={`wy-c wy-c${index + 1} wy-lft`}
+                      style={{ ["--i" as string]: index + 1 }}
+                    >
+                      <div className="wy-top">
+                        <span className="wy-n">{reason.n}</span>
+                        <span className="wy-i">{reasonIcons[index]}</span>
+                      </div>
+                      <h3 className="wy-t">
+                        <LocaleText en={reason.title} id={idReason.title} />
+                      </h3>
+                      <p className="wy-d">
+                        <LocaleText
+                          en={reason.description}
+                          id={idReason.description}
+                        />
+                      </p>
+                    </article>
+                  );
+                })}
+              </div>
+              <div className="wy-mid">
+                <WhyLogoReveal />
+              </div>
             </div>
-            {why.reasons.map((reason, index) => (
-              <article
-                key={reason.n}
-                className={`wy-c wy-c${index + 1} ${reason.side === "left" ? "wy-lft" : "wy-rgt"}`}
-                style={{ ["--i" as string]: index + 1 }}
-              >
-                <div className="wy-top">
-                  <span className="wy-n">{reason.n}</span>
-                  <span className="wy-i">
-                    <WhyIcon type={reason.icon} />
-                  </span>
-                </div>
-                <h3 className="wy-t">{reason.title}</h3>
-                <p className="wy-d">{reason.description}</p>
-              </article>
-            ))}
           </div>
         </div>
       </section>

@@ -34,33 +34,27 @@ const en = {
     reasons: [
       {
         n: "01",
-        title: "AI-focused",
-        description: "AI is the focus of the company, not an add-on.",
+        title: "Literacy First",
+        description:
+          "We help people understand AI and data clearly, then apply them meaningfully through programs at Digdeep Academy.",
         side: "left" as const,
-        icon: "spark" as const,
+        icon: "learn" as const,
       },
       {
         n: "02",
-        title: "Built around your operations",
-        description: "Systems are based on your processes, data and goals.",
-        side: "right" as const,
+        title: "Applied Workflows",
+        description:
+          "We turn AI knowledge into everyday execution, simplifying work, reducing friction, and accelerating results.",
+        side: "left" as const,
         icon: "target" as const,
       },
       {
         n: "03",
-        title: "From idea to implementation",
+        title: "Systems That Scale",
         description:
-          "One team from identifying opportunities to putting the system into use.",
+          "When needed, we design and build AI-powered systems tailored to organizational processes and goals.",
         side: "left" as const,
         icon: "arrow" as const,
-      },
-      {
-        n: "04",
-        title: "Learning built in",
-        description:
-          "Through Digdeep Academy, Tenos also teaches AI and Excel.",
-        side: "right" as const,
-        icon: "learn" as const,
       },
     ],
   },
@@ -123,23 +117,23 @@ const en = {
     slides: [
       {
         type: "image" as const,
-        src: "/images/academy/academy-photo-1.png",
+        src: "/images/academy/academy-photo-1.avif",
+        alt: "Digdeep Academy offline training session with participants",
+      },
+      {
+        type: "image" as const,
+        src: "/images/academy/academy-photo-2.avif",
+        alt: "Hands-on Digdeep Academy offline workshop",
+      },
+      {
+        type: "image" as const,
+        src: "/images/academy/academy-photo-3.avif",
         alt: "Digdeep Academy online training session",
       },
       {
         type: "image" as const,
-        src: "/images/academy/academy-photo-2.png",
-        alt: "Participants learning AI tools in Digdeep Academy online class",
-      },
-      {
-        type: "image" as const,
-        src: "/images/academy/academy-photo-3.png",
-        alt: "Digdeep Academy offline workshop with participants",
-      },
-      {
-        type: "image" as const,
-        src: "/images/academy/academy-photo-4.png",
-        alt: "Hands-on Digdeep Academy offline training session",
+        src: "/images/academy/academy-photo-4.avif",
+        alt: "Participants learning in Digdeep Academy online class",
       },
     ],
   },
@@ -284,7 +278,7 @@ const en = {
     blurb:
       "AI systems consulting for businesses, and AI learning through Digdeep Academy.",
     pages: "Pages",
-    ourFocus: "Our focus",
+    ourFocus: "Our Focus",
     contact: "Contact",
     home: "Home",
     about: "About Us",
@@ -296,9 +290,13 @@ const en = {
     chatWhatsapp: "Chat on WhatsApp",
     email: "Email",
     office: "Office",
+    phoneDisplay: "+62 811-1010-331",
+    emailDisplay: "emailexample@gmail.com",
+    addressDisplay: "Jl. Bango Raya No.31 B, Pd. Labu, Cilandak, Jakarta Selatan 12450",
     numberPending: "[number to be provided]",
     addressPending: "[address to be provided]",
     legalPending: "[Legal links to be provided]",
+    rightsReserved: "All rights reserved.",
     opensNewTab: "(opens in a new tab)",
   },
   skip: "Skip to main content",
@@ -327,38 +325,31 @@ const id: typeof en = {
   },
   why: {
     eyebrow: "Mengapa memilih Tenos",
-    heading: "Fokus pada AI, dibangun sesuai kebutuhan Anda.",
+    heading: "Berfokus pada AI, dibangun untuk Anda.",
     reasons: [
       {
         n: "01",
-        title: "Fokus pada AI",
-        description: "AI adalah fokus utama perusahaan, bukan sekadar tambahan.",
+        title: "Literasi Lebih Dulu",
+        description:
+          "Kami membantu orang memahami AI dan data dengan jelas, lalu menerapkannya secara bermakna melalui program di Digdeep Academy.",
         side: "left" as const,
-        icon: "spark" as const,
+        icon: "learn" as const,
       },
       {
         n: "02",
-        title: "Dibangun sesuai operasional Anda",
+        title: "Alur Kerja Terapan",
         description:
-          "Sistem didasarkan pada proses, data, dan tujuan bisnis Anda.",
-        side: "right" as const,
+          "Kami mengubah pengetahuan AI menjadi eksekusi sehari-hari: menyederhanakan pekerjaan, mengurangi hambatan, dan mempercepat hasil.",
+        side: "left" as const,
         icon: "target" as const,
       },
       {
         n: "03",
-        title: "Dari ide hingga implementasi",
+        title: "Sistem yang Bertumbuh",
         description:
-          "Satu tim dari mengidentifikasi peluang hingga sistem siap digunakan.",
+          "Saat dibutuhkan, kami merancang dan membangun sistem berbasis AI yang disesuaikan dengan proses dan tujuan organisasi.",
         side: "left" as const,
         icon: "arrow" as const,
-      },
-      {
-        n: "04",
-        title: "Pembelajaran terintegrasi",
-        description:
-          "Melalui Digdeep Academy, Tenos juga mengajarkan AI dan Excel.",
-        side: "right" as const,
-        icon: "learn" as const,
       },
     ],
   },
@@ -421,23 +412,23 @@ const id: typeof en = {
     slides: [
       {
         type: "image" as const,
-        src: "/images/academy/academy-photo-1.png",
+        src: "/images/academy/academy-photo-1.avif",
+        alt: "Sesi pelatihan offline Digdeep Academy bersama peserta",
+      },
+      {
+        type: "image" as const,
+        src: "/images/academy/academy-photo-2.avif",
+        alt: "Workshop hands-on Digdeep Academy secara offline",
+      },
+      {
+        type: "image" as const,
+        src: "/images/academy/academy-photo-3.avif",
         alt: "Sesi pelatihan online Digdeep Academy",
       },
       {
         type: "image" as const,
-        src: "/images/academy/academy-photo-2.png",
-        alt: "Peserta belajar tools AI di kelas online Digdeep Academy",
-      },
-      {
-        type: "image" as const,
-        src: "/images/academy/academy-photo-3.png",
-        alt: "Workshop offline Digdeep Academy bersama peserta",
-      },
-      {
-        type: "image" as const,
-        src: "/images/academy/academy-photo-4.png",
-        alt: "Sesi pelatihan hands-on Digdeep Academy secara offline",
+        src: "/images/academy/academy-photo-4.avif",
+        alt: "Peserta belajar di kelas online Digdeep Academy",
       },
     ],
   },
@@ -531,43 +522,41 @@ const id: typeof en = {
     viewProject: "Lihat proyek",
     viewProjectPending: "Tautan studi kasus akan disediakan",
   },
-  // FAQ Q&A remains English until approved Indonesian translations are provided.
   faq: {
     id: "faq",
     eyebrow: "FAQ",
-    heading: "Got a Question? We're Here to Help.",
-    lead: "Find answers to common questions about our AI learning programs and consulting services. Still curious? We'd be happy to help.",
+    heading: "Punya Pertanyaan? Kami Siap Membantu.",
+    lead: "Temukan jawaban atas pertanyaan umum seputar program belajar AI dan layanan konsultasi kami. Masih penasaran? Kami siap membantu.",
     items: [
       {
         id: "faq-01",
-        question:
-          "What is the difference between Digdeep Academy and AI Systems Consulting?",
+        question: "Apa perbedaan Digdeep Academy dan AI Systems Consulting?",
         answer:
-          "Digdeep Academy focuses on AI and data education, helping individuals and teams develop practical knowledge and skills. AI Systems Consulting helps businesses identify their needs, develop tailored AI solutions, and implement intelligent systems.",
+          "Digdeep Academy berfokus pada edukasi AI dan data, membantu individu dan tim mengembangkan pengetahuan serta keterampilan praktis. AI Systems Consulting membantu bisnis mengidentifikasi kebutuhan, mengembangkan solusi AI yang disesuaikan, dan mengimplementasikan sistem cerdas.",
       },
       {
         id: "faq-02",
-        question: "Who can join Digdeep Academy?",
+        question: "Siapa yang bisa bergabung dengan Digdeep Academy?",
         answer:
-          "Digdeep Academy is designed for individuals and teams who want to develop their knowledge and skills in AI, data, and analytics. Explore the available learning programs to find what suits your needs.",
+          "Digdeep Academy dirancang untuk individu dan tim yang ingin mengembangkan pengetahuan serta keterampilan di bidang AI, data, dan analitik. Jelajahi program belajar yang tersedia untuk menemukan yang sesuai dengan kebutuhan Anda.",
       },
       {
         id: "faq-03",
-        question: "What kind of AI solutions does the consulting service provide?",
+        question: "Solusi AI seperti apa yang disediakan layanan konsultasi?",
         answer:
-          "The consulting service focuses on understanding your business needs and developing AI-powered systems tailored to your requirements. This may include system development, AI integration, and implementation.",
+          "Layanan konsultasi berfokus pada memahami kebutuhan bisnis Anda dan mengembangkan sistem berbasis AI yang disesuaikan dengan kebutuhan tersebut. Ini dapat mencakup pengembangan sistem, integrasi AI, dan implementasi.",
       },
       {
         id: "faq-04",
-        question: "How do I get started with AI Systems Consulting?",
+        question: "Bagaimana cara memulai dengan AI Systems Consulting?",
         answer:
-          "You can start by contacting our team through WhatsApp. Share your business challenges and requirements, and our team can discuss potential solutions with you.",
+          "Anda bisa memulai dengan menghubungi tim kami melalui WhatsApp. Ceritakan tantangan dan kebutuhan bisnis Anda, lalu tim kami akan mendiskusikan solusi yang memungkinkan bersama Anda.",
       },
       {
         id: "faq-05",
-        question: "Do I need technical knowledge to work with TENOS?",
+        question: "Apakah saya perlu pengetahuan teknis untuk bekerja dengan TENOS?",
         answer:
-          "Not necessarily. Whether you want to learn AI through Digdeep Academy or explore AI solutions for your business, you can start by discussing your goals and needs with us.",
+          "Tidak harus. Baik Anda ingin belajar AI melalui Digdeep Academy maupun menjajaki solusi AI untuk bisnis, Anda bisa memulai dengan mendiskusikan tujuan dan kebutuhan Anda bersama kami.",
       },
     ],
   },
@@ -583,7 +572,7 @@ const id: typeof en = {
     blurb:
       "Konsultasi sistem AI untuk bisnis, dan pembelajaran AI melalui Digdeep Academy.",
     pages: "Halaman",
-    ourFocus: "Fokus kami",
+    ourFocus: "Fokus Kami",
     contact: "Kontak",
     home: "Beranda",
     about: "Tentang Kami",
@@ -595,9 +584,13 @@ const id: typeof en = {
     chatWhatsapp: "Chat via WhatsApp",
     email: "Email",
     office: "Kantor",
+    phoneDisplay: "+62 811-1010-331",
+    emailDisplay: "emailexample@gmail.com",
+    addressDisplay: "Jl. Bango Raya No.31 B, Pd. Labu, Cilandak, Jakarta Selatan 12450",
     numberPending: "[nomor akan disediakan]",
     addressPending: "[alamat akan disediakan]",
     legalPending: "[Tautan legal akan disediakan]",
+    rightsReserved: "Seluruh hak cipta dilindungi.",
     opensNewTab: "(membuka tab baru)",
   },
   skip: "Lewati ke konten utama",

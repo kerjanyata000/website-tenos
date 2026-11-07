@@ -10,9 +10,13 @@ export const siteSettings: SiteSettings = {
   defaultTitle: "Tenos — Beyond Technology. Empowering Intelligence.",
   defaultDescription:
     "AI systems consulting for businesses, and AI learning through Digdeep Academy.",
-  whatsappNumber: "",
+  /** Digits only for wa.me — display as +62 811-1010-331 */
+  whatsappNumber: "628111010331",
   whatsappMessage: "Hello Tenos, I would like to discuss our technology needs.",
   academyUrl: "https://www.digdeep.id/",
+  email: "",
+  /** Address from approved Figma footer (desktop). */
+  officeAddress: "Jl. Bango Raya No.31 B, Pd. Labu, Cilandak, Jakarta Selatan 12450",
   privacyUrl: "",
   social: [],
 };

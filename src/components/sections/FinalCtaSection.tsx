@@ -4,11 +4,12 @@ import { ExportCta } from "@/components/sections/ExportCta";
 import { Placeholder } from "@/components/ui/Placeholder";
 import { Reveal } from "@/components/ui/Reveal";
 import { useHomepageCopy } from "@/hooks/useHomepageCopy";
-import { getAcademyUrl } from "@/lib/links";
+import { getAcademyUrl, getWhatsAppUrl } from "@/lib/links";
 
 export function FinalCtaSection() {
   const { finalCta, academy } = useHomepageCopy();
   const academyUrl = getAcademyUrl();
+  const whatsappUrl = getWhatsAppUrl();
 
   return (
     <section
@@ -41,9 +42,20 @@ export function FinalCtaSection() {
                 <Placeholder>{academy.urlPending}</Placeholder>
               </div>
             )}
-            <ExportCta href="#site-footer" variant="ghost">
-              {finalCta.contactCta}
-            </ExportCta>
+            {whatsappUrl ? (
+              <ExportCta
+                href={whatsappUrl}
+                variant="ghost"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {finalCta.contactCta}
+              </ExportCta>
+            ) : (
+              <ExportCta href="/contact" variant="ghost">
+                {finalCta.contactCta}
+              </ExportCta>
+            )}
           </div>
         </Reveal>
       </div>

@@ -13,6 +13,7 @@ export {
   SectionHeading,
 } from "./Typography";
 export {
+  IconChat,
   IconClose,
   IconExternal,
   IconInstagram,

@@ -3,6 +3,7 @@
 @import "../styles/motion.css";
 @import "../styles/chrome.css";
 @import "../styles/homepage-export.css";
+@import "../styles/pages-export.css";
 
 /* Map design tokens into Tailwind utilities without circular var() refs */
 @theme inline {
@@ -57,6 +58,11 @@
   html {
     scroll-behavior: smooth;
     scroll-padding-top: var(--nav-height);
+    max-width: 100%;
+    /* clip + explicit y scroll: overflow-x:hidden on root breaks sticky; clip alone
+       leaves overflow-y:visible and kills document scrolling */
+    overflow-x: clip;
+    overflow-y: auto;
   }
 
   @media (prefers-reduced-motion: reduce) {
@@ -68,6 +74,9 @@
   body {
     margin: 0;
     min-height: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+    overflow-y: visible;
     background-color: var(--color-bg-page);
     color: var(--color-text-primary);
     font-family: var(--font-text);
@@ -75,6 +84,13 @@
     line-height: var(--leading-normal);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
+  }
+
+  /* Lock page scroll while the mobile nav drawer is open (class toggled in Header) */
+  html.nav-menu-open,
+  html.nav-menu-open body {
+    overflow: hidden;
+    overscroll-behavior: none;
   }
 
   h1,
